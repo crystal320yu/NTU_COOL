@@ -5,7 +5,6 @@
 
 # 查看內建資料集: 鳶尾花(iris)資料集
 iris
-# Add more comments here
 
 # 使用dim(), 回傳iris的列數與欄數
 dim(iris)
