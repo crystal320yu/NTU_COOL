@@ -1,0 +1,10 @@
+install.packages("rvest")
+library("rvest")
+library("xml2")
+library(jsonlite)
+url<-"https://ecshweb.pchome.com.tw/search/v3.3/all/results?q=airpods&page=1&sort=rnk/dc"
+res=GET(url)
+res_json =(content(res, encoding = 'utf-8'))
+do.call(rbind,res_json$prods)
+View(data.frame(do.call(rbind,res_json$prods)))
+install.packages("rmarkdown")
