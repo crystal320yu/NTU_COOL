@@ -9,5 +9,3 @@ movie %>% html_node(".summary_text") %>% html_text()
 
 
 movie %>% html_node("strong span") %>% html_text()
-
-
