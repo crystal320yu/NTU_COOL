@@ -3,7 +3,7 @@
 </p>
 <p>
   <ul type="disc">
-    <li>course_2</li>
+    <li>course_2 (AT HOME)</li>
       <ul type="circle">
         <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/course_2/practice_1.R">practice_1.R</a></li>
         <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/course_2/practice_2.R">practice_2.R</a></li>
@@ -15,7 +15,7 @@
 
 <p>
   <ul type="disc">
-    <li>hw_2</li>
+    <li>hw_2 (AT HOME)</li>
   </ul>
   <ul type="circle">
     <li>
