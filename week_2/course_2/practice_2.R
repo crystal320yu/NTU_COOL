@@ -12,7 +12,7 @@ GetBmi <- function (my.height.cm, my.weight.kg) {
 ### Part I - 讀取資料與查看資料框內容 ##############################################
 # 使用read.table()讀取test_data.csv
 # 請注意sep, header的用途, 以及stringsAsFactors = F的影響
-df <- read.table('test_data.csv', sep = ',', header = T, stringsAsFactors = F)
+df <- read.table("test_data.csv", sep = ",", header = TRUE, stringsAsFactors = F)
 
 # 使用dim()查看df的維度(列數與欄數)
 dim(df)
@@ -70,7 +70,7 @@ df <- df[order(df$Grade, decreasing = TRUE), ]
 df <- subset(df, select = c(-Age))
 
 # 使用names()，重新將Grade欄位命名為ToeicGrade
-names(df)[Grade] <- "ToeicGrade"
+names(df)[4] <- "ToeicGrade"
 
 # 使用subset()，篩選出ToeicGrade大於900並且身高大於170的人
 # 且欄位只需要Name, ToeicGrade與Height
@@ -97,4 +97,5 @@ df$Bmi <- mapply(GetBmi, df$Height, df$Weight)
 # 使用merge()，將df.sport資料與df進行連結後更新至df，並設定all.x = T保留所有資料
 # 參考https://joe11051105.gitbooks.io/r_basic/content/arrange_data/merge_and_subsetting.html
 df <- merge(df, df.sport, by = 'Name', all.x = T)
+
 View(df)
