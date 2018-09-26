@@ -9,11 +9,13 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## RCrawler
+## **R Crawler**
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+在Pchome的網頁中查詢 airpods。  
+查詢到airpods的頁面中，右鍵按「檢查」--> 「Network」--> 「Name」中找到result.....為url。  
+使用res_jason  
+最後建立Dataframe 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r}
 library(httr)
@@ -25,7 +27,8 @@ raw = (data.frame(do.call(rbind,res_json$prods)))
 
 ```
 
-##Show Results
+##<font size=6>**Show Results**<font>
+___________________________________________________________________________________________________
 
 ```{r}
 library(knitr)
