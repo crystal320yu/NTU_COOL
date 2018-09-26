@@ -53,3 +53,14 @@
      </ul>
   </ul>
 </p>
+<font size="4">課堂中</font>  
+1.本周在課堂上學習爬蟲用法，得知讀取url，使用rvest及jason。  
+2.原本很困惑的問題:class如何抓取？也在老師請同學上來分享時得知爬取class的語法為"."。
+
+<font size="4">Home</font>  
+1.在家完成course_2的R practice1.2.3以及crawler的練習  
+2.花了一些時間摸索Rmarkdown  
+3.hw_2總共爬取了兩個網站  
+  (1.)用R爬取ATP男單網球排名  
+  (2.)用python爬取PTT GOSSIP版前三頁標題  
+4.並且與同學研究加分題ooxx
