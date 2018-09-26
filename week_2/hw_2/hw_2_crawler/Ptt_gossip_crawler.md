@@ -7,11 +7,13 @@ from pyquery import PyQuery as pq
 
 
 ```python
+#PTT會問是否滿18歲，將cookie設定為over18
 res=requests.get("https://www.ptt.cc/bbs/Gossiping/index.html",cookies={"over18":"1"})
 ```
 
 
 ```python
+#爬取前三頁，使用for迴圈
 for eachPage in range(3):
     mainDoc = pq(res.text)
     for eachPost in mainDoc("#main-container .r-ent").items():

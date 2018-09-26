@@ -11790,7 +11790,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">res</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.ptt.cc/bbs/Gossiping/index.html&quot;</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;over18&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">})</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#PTT會問是否滿18歲，將cookie設定為over18</span>
+<span class="n">res</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.ptt.cc/bbs/Gossiping/index.html&quot;</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;over18&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">})</span>
 </pre></div>
 
 </div>
@@ -11803,7 +11804,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">eachPage</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#爬取前三頁，使用for迴圈</span>
+<span class="k">for</span> <span class="n">eachPage</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">mainDoc</span> <span class="o">=</span> <span class="n">pq</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">eachPost</span> <span class="ow">in</span> <span class="n">mainDoc</span><span class="p">(</span><span class="s2">&quot;#main-container .r-ent&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">eachPost</span><span class="p">(</span><span class="s1">&#39;.title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">eachPost</span><span class="p">(</span><span class="s1">&#39;.author&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
