@@ -15,10 +15,10 @@
 <p>
   <ul type="disc">
     <li>hw_1 (AT HOME)</li>
-  </ul>
-    <ul type="circle">
+     <ul type="circle">
      <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_answer.R">hw_1_answer.R</a></li>
-    </ul>
+     </ul>
+  </ul>
 </p>
 
 
@@ -41,15 +41,15 @@
 <p>
   <ul type="disc">
     <li>hw_2 (AT HOME)</li>
-  </ul>
-  <ul type="circle">
-    <li>
+     <ul type="circle">
+     <li>
      <a href="https://github.com/crystal320yu/NTU_COOL/tree/master/week_2/hw_2/hw_2_crawler">hw_2_crawler_example</a>
-    <ul type = "square"> 
-      <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/hw_2_crawler/ATP_tennis_RScrawler.R">ATP_tennis_RScrawler.R</a></li>
-      <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/hw_2_crawler/ATP_tennis_RScrawler.Rmd">ATP_tennis_RScrawler.Rmd</a></li>
-      <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/hw_2_crawler/ATP_tennis_RScrawler.html">ATP_tennis_RScrawler.html</a></li>
-    </ul>
-  <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/tic_tac_toe.md">hw_2_extra_OOXX_game.R</a></li>
+       <ul type = "square"> 
+       <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/hw_2_crawler/ATP_tennis_RScrawler.R">ATP_tennis_RScrawler.R</a></li>
+       <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/hw_2_crawler/ATP_tennis_RScrawler.Rmd">ATP_tennis_RScrawler.Rmd</a></li>
+       <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/hw_2_crawler/ATP_tennis_RScrawler.html">ATP_tennis_RScrawler.html</a></li>
+      </ul>
+     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_2/hw_2/tic_tac_toe.md">hw_2_extra_OOXX_game.R</a></li>
+     </ul>
   </ul>
 </p>
