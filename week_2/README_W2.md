@@ -30,12 +30,18 @@
   </ul>
 </p>
 
-課堂中  
-本周在課堂上學習爬蟲用法，得知讀取url，使用rvest及jason。  
-原本很困惑的問題:class如何抓取？也在老師請同學上來分享時得知爬取class的語法為"."。
+<p>
+  <u>Class 進度</u><br> 
+    1.本周在課堂上學習爬蟲用法，得知讀取url，使用rvest及jason。<br> 
+    2.原本很困惑的問題:class如何抓取？也在老師請同學上來分享時得知爬取class的語法為"."。<p>
+    
 
-Home  
-在家完成course_2的R practice1.2.3以及crawler的練習  
-花了一些時間摸索Rmarkdown  
-hw_2總共爬取了兩個網站用R爬取ATP男單網球排名，用python爬取PTT GOSSIP版前三頁標題  
-並且與同學研究加分題ooxx
+
+  <u>Home 進度</u><br>
+    1.在家完成course_2的R practice1.2.3以及crawler的練習<br>
+    2.花了一些時間摸索Rmarkdown<br>
+    3.hw_2總共爬取了兩個網站<br>
+     (1.)用R爬取ATP男單網球排名，並製成表格<br>
+     (2.)用python爬取PTT GOSSIP版前三頁標題<br>
+    4.並且與同學研究加分題ooxx
+</p>
