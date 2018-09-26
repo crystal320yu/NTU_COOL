@@ -64,7 +64,7 @@
     1.在家完成course_2的R practice1.2.3以及crawler的練習<br>
     2.花了一些時間摸索Rmarkdown<br>
     3.hw_2總共爬取了兩個網站<br>
-     (1.)用R爬取ATP男單網球排名，並製成表格<br>
+     (1.)用R爬取ATP男單網球排名，並製成表格。最後再取倒數五名依照分數，做出圖表。(使用SelectorGadget、ggplot)<br>
      (2.)用python爬取PTT GOSSIP版前三頁標題<br>
     4.並且與同學研究加分題ooxx
 </p>
