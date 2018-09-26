@@ -30,4 +30,9 @@ df.tennis <- data.frame(tennis.rank,tennis.player,tennis.point,tennis.tournplaye
 df.tennis
 
 
+#取出倒數五名，使用ggplot依照分數劃出長條圖
+df.tennis.info <- df.tennis[-c(1:95),]
+tennis.point <- df.tennis.info$tennis.point %>% as.numeric()
 
+pic <- ggplot(df.tennis.info, aes(x=tennis.player, y=tennis.point))+geom_bar(stat = "identity")
+pic

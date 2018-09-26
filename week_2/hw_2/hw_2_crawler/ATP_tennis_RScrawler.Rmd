@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 </font><br />
 
 ```{r url}
-#設爬蟲頁面
 library(xml2)
 library(rvest)
+library(ggplot2)
 tennis.source <- read_html("https://www.atpworldtour.com/en/rankings/singles")
 ```
 
@@ -52,4 +52,13 @@ NROW(tennis.tournplayed)
 ```{r }
 df.tennis <- data.frame(tennis.rank,tennis.player,tennis.point,tennis.tournplayed)
 df.tennis
+```
+
+<font size="4">取出倒數五名，使用ggplot依照分數劃出長條圖</font><br />
+```{r pic}
+df.tennis.info <- df.tennis[-c(1:95),]
+tennis.point <- df.tennis.info$tennis.point %>% as.numeric()
+
+pic <- ggplot(df.tennis.info, aes(x=tennis.player, y=tennis.point))+geom_bar(stat = "identity")
+pic
 ```
