@@ -1,8 +1,7 @@
-install.packages("igraph")
-install.packages("ggplot2")
-
 library(rvest)
 library(xml2)
+library(igraph)
+library(ggplot2)
 
 
 
