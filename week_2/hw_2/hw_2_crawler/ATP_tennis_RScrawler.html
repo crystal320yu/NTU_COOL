@@ -153,13 +153,728 @@ NROW(tennis.tournplayed)</code></pre>
 <pre><code>## [1] 100</code></pre>
 <p><font size="4">建立Dataframe</font><br /> *使用NROW確認欄位數是否相同</p>
 <pre class="r"><code>df.tennis &lt;- data.frame(tennis.rank,tennis.player,tennis.point,tennis.tournplayed)
-results= df.tennis</code></pre>
+df.tennis</code></pre>
+<pre><code>##     tennis.rank           tennis.player tennis.point tennis.tournplayed
+## 1             1            Rafael Nadal        8,760                 14
+## 2             2           Roger Federer        6,900                 17
+## 3             3          Novak Djokovic        6,445                 17
+## 4             4   Juan Martin del Potro        5,980                 20
+## 5             5        Alexander Zverev        4,890                 22
+## 6             6             Marin Cilic        4,715                 19
+## 7             7           Dominic Thiem        3,825                 27
+## 8             8         Grigor Dimitrov        3,755                 21
+## 9             9          Kevin Anderson        3,595                 20
+## 10           10              John Isner        3,470                 22
+## 11           11            David Goffin        3,435                 23
+## 12           12           Kei Nishikori        2,520                 22
+## 13           13           Fabio Fognini        2,120                 24
+## 14           14       Diego Schwartzman        2,110                 26
+## 15           15      Stefanos Tsitsipas        1,962                 29
+## 16           16             Kyle Edmund        1,855                 23
+## 17           17               Jack Sock        1,850                 22
+## 18           18             Borna Coric        1,825                 20
+## 19           19           Lucas Pouille        1,825                 23
+## 20           20            Milos Raonic        1,755                 19
+## 21           21     Pablo Carreno Busta        1,750                 25
+## 22           22        Marco Cecchinato        1,735                 29
+## 23           23             Hyeon Chung        1,630                 22
+## 24           24         Karen Khachanov        1,605                 25
+## 25           25         Richard Gasquet        1,580                 25
+## 26           26   Roberto Bautista Agut        1,570                 24
+## 27           27            Nick Kyrgios        1,425                 20
+## 28           28       Fernando Verdasco        1,375                 27
+## 29           29            Gilles Simon        1,345                 27
+## 30           30           Steve Johnson        1,340                 25
+## 31           31        Denis Shapovalov        1,295                 25
+## 32           32         Daniil Medvedev        1,287                 26
+## 33           33        Adrian Mannarino        1,285                 28
+## 34           34        Filip Krajinovic        1,282                 20
+## 35           35    Nikoloz Basilashvili        1,277                 28
+## 36           36            John Millman        1,233                 26
+## 37           37   Philipp Kohlschreiber        1,215                 21
+## 38           38            Gael Monfils        1,195                 21
+## 39           39           Damir Dzumhur        1,190                 30
+## 40           40          Alex de Minaur        1,133                 25
+## 41           41          Frances Tiafoe        1,090                 24
+## 42           42           Jeremy Chardy        1,075                 26
+## 43           43        Marton Fucsovics        1,047                 28
+## 44           44             Robin Haase        1,045                 28
+## 45           45           Nicolas Jarry        1,026                 23
+## 46           46           Andreas Seppi        1,021                 23
+## 47           47           Matthew Ebden          994                 28
+## 48           48           Ryan Harrison          980                 24
+## 49           49           Martin Klizan          973                 19
+## 50           50              Joao Sousa          966                 30
+## 51           51          Leonardo Mayer          965                 26
+## 52           52    Albert Ramos-Vinolas          950                 29
+## 53           53           Dusan Lajovic          945                 25
+## 54           54        Julien Benneteau          926                 17
+## 55           55         Tennys Sandgren          911                 24
+## 56           56      Jan-Lennard Struff          910                 28
+## 57           57     Maximilian Marterer          903                 27
+## 58           58             Sam Querrey          875                 23
+## 59           59             Guido Pella          870                 25
+## 60           60       Matteo Berrettini          869                 22
+## 61           61            Benoit Paire          850                 30
+## 62           62            Taylor Fritz          825                 26
+## 63           63            Malek Jaziri          824                 31
+## 64           64           Denis Istomin          822                 24
+## 65           65             Denis Kudla          815                 27
+## 66           66            Pablo Cuevas          805                 24
+## 67           67   Pierre-Hugues Herbert          799                 25
+## 68           68           Andrey Rublev          795                 26
+## 69           69           Mischa Zverev          790                 33
+## 70           70         Peter Gojowczyk          786                 26
+## 71           71         Feliciano Lopez          770                 22
+## 72           72           Tomas Berdych          760                 16
+## 73           73          Cameron Norrie          758                 24
+## 74           74             Taro Daniel          743                 25
+## 75           75           Stan Wawrinka          740                 17
+## 76           76      Jo-Wilfried Tsonga          740                 13
+## 77           77             Lukas Lacko          730                 26
+## 78           78            Aljaz Bedene          725                 21
+## 79           79             Mirza Basic          715                 28
+## 80           80      Mackenzie McDonald          714                 27
+## 81           81  Guillermo Garcia-Lopez          708                 30
+## 82           82             Jaume Munar          698                 30
+## 83           83             Laslo Djere          688                 27
+## 84           84           Jozef Kovalik          685                 24
+## 85           85          Evgeny Donskoy          681                 26
+## 86           86          Vasek Pospisil          677                 26
+## 87           87       Mikhail Kukushkin          676                 23
+## 88           88            Marius Copil          667                 25
+## 89           89          Lorenzo Sonego          646                 25
+## 90           90             Jiri Vesely          645                 23
+## 91           91       Federico Delbonis          645                 25
+## 92           92        Marcos Baghdatis          630                 20
+## 93           93            Jason Kubler          617                 26
+## 94           94 Roberto Carballes Baena          615                 33
+## 95           95           Bradley Klahn          610                 22
+## 96           96          Hubert Hurkacz          597                 28
+## 97           97            Yuki Bhambri          592                 20
+## 98           98         Guido Andreozzi          592                 22
+## 99           99         Jared Donaldson          590                 26
+## 100         100           Yuichi Sugita          590                 29</code></pre>
+<pre class="r"><code>knitr::kable(df.tennis)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">tennis.rank</th>
+<th align="left">tennis.player</th>
+<th align="left">tennis.point</th>
+<th align="left">tennis.tournplayed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Rafael Nadal</td>
+<td align="left">8,760</td>
+<td align="left">14</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Roger Federer</td>
+<td align="left">6,900</td>
+<td align="left">17</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Novak Djokovic</td>
+<td align="left">6,445</td>
+<td align="left">17</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Juan Martin del Potro</td>
+<td align="left">5,980</td>
+<td align="left">20</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Alexander Zverev</td>
+<td align="left">4,890</td>
+<td align="left">22</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Marin Cilic</td>
+<td align="left">4,715</td>
+<td align="left">19</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Dominic Thiem</td>
+<td align="left">3,825</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Grigor Dimitrov</td>
+<td align="left">3,755</td>
+<td align="left">21</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Kevin Anderson</td>
+<td align="left">3,595</td>
+<td align="left">20</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">John Isner</td>
+<td align="left">3,470</td>
+<td align="left">22</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="left">David Goffin</td>
+<td align="left">3,435</td>
+<td align="left">23</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="left">Kei Nishikori</td>
+<td align="left">2,520</td>
+<td align="left">22</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+<td align="left">Fabio Fognini</td>
+<td align="left">2,120</td>
+<td align="left">24</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="left">Diego Schwartzman</td>
+<td align="left">2,110</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="left">Stefanos Tsitsipas</td>
+<td align="left">1,962</td>
+<td align="left">29</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">Kyle Edmund</td>
+<td align="left">1,855</td>
+<td align="left">23</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="left">Jack Sock</td>
+<td align="left">1,850</td>
+<td align="left">22</td>
+</tr>
+<tr class="even">
+<td align="right">18</td>
+<td align="left">Borna Coric</td>
+<td align="left">1,825</td>
+<td align="left">20</td>
+</tr>
+<tr class="odd">
+<td align="right">19</td>
+<td align="left">Lucas Pouille</td>
+<td align="left">1,825</td>
+<td align="left">23</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="left">Milos Raonic</td>
+<td align="left">1,755</td>
+<td align="left">19</td>
+</tr>
+<tr class="odd">
+<td align="right">21</td>
+<td align="left">Pablo Carreno Busta</td>
+<td align="left">1,750</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">22</td>
+<td align="left">Marco Cecchinato</td>
+<td align="left">1,735</td>
+<td align="left">29</td>
+</tr>
+<tr class="odd">
+<td align="right">23</td>
+<td align="left">Hyeon Chung</td>
+<td align="left">1,630</td>
+<td align="left">22</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="left">Karen Khachanov</td>
+<td align="left">1,605</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="left">Richard Gasquet</td>
+<td align="left">1,580</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">26</td>
+<td align="left">Roberto Bautista Agut</td>
+<td align="left">1,570</td>
+<td align="left">24</td>
+</tr>
+<tr class="odd">
+<td align="right">27</td>
+<td align="left">Nick Kyrgios</td>
+<td align="left">1,425</td>
+<td align="left">20</td>
+</tr>
+<tr class="even">
+<td align="right">28</td>
+<td align="left">Fernando Verdasco</td>
+<td align="left">1,375</td>
+<td align="left">27</td>
+</tr>
+<tr class="odd">
+<td align="right">29</td>
+<td align="left">Gilles Simon</td>
+<td align="left">1,345</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="right">30</td>
+<td align="left">Steve Johnson</td>
+<td align="left">1,340</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="right">31</td>
+<td align="left">Denis Shapovalov</td>
+<td align="left">1,295</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">32</td>
+<td align="left">Daniil Medvedev</td>
+<td align="left">1,287</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">33</td>
+<td align="left">Adrian Mannarino</td>
+<td align="left">1,285</td>
+<td align="left">28</td>
+</tr>
+<tr class="even">
+<td align="right">34</td>
+<td align="left">Filip Krajinovic</td>
+<td align="left">1,282</td>
+<td align="left">20</td>
+</tr>
+<tr class="odd">
+<td align="right">35</td>
+<td align="left">Nikoloz Basilashvili</td>
+<td align="left">1,277</td>
+<td align="left">28</td>
+</tr>
+<tr class="even">
+<td align="right">36</td>
+<td align="left">John Millman</td>
+<td align="left">1,233</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">37</td>
+<td align="left">Philipp Kohlschreiber</td>
+<td align="left">1,215</td>
+<td align="left">21</td>
+</tr>
+<tr class="even">
+<td align="right">38</td>
+<td align="left">Gael Monfils</td>
+<td align="left">1,195</td>
+<td align="left">21</td>
+</tr>
+<tr class="odd">
+<td align="right">39</td>
+<td align="left">Damir Dzumhur</td>
+<td align="left">1,190</td>
+<td align="left">30</td>
+</tr>
+<tr class="even">
+<td align="right">40</td>
+<td align="left">Alex de Minaur</td>
+<td align="left">1,133</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="right">41</td>
+<td align="left">Frances Tiafoe</td>
+<td align="left">1,090</td>
+<td align="left">24</td>
+</tr>
+<tr class="even">
+<td align="right">42</td>
+<td align="left">Jeremy Chardy</td>
+<td align="left">1,075</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">43</td>
+<td align="left">Marton Fucsovics</td>
+<td align="left">1,047</td>
+<td align="left">28</td>
+</tr>
+<tr class="even">
+<td align="right">44</td>
+<td align="left">Robin Haase</td>
+<td align="left">1,045</td>
+<td align="left">28</td>
+</tr>
+<tr class="odd">
+<td align="right">45</td>
+<td align="left">Nicolas Jarry</td>
+<td align="left">1,026</td>
+<td align="left">23</td>
+</tr>
+<tr class="even">
+<td align="right">46</td>
+<td align="left">Andreas Seppi</td>
+<td align="left">1,021</td>
+<td align="left">23</td>
+</tr>
+<tr class="odd">
+<td align="right">47</td>
+<td align="left">Matthew Ebden</td>
+<td align="left">994</td>
+<td align="left">28</td>
+</tr>
+<tr class="even">
+<td align="right">48</td>
+<td align="left">Ryan Harrison</td>
+<td align="left">980</td>
+<td align="left">24</td>
+</tr>
+<tr class="odd">
+<td align="right">49</td>
+<td align="left">Martin Klizan</td>
+<td align="left">973</td>
+<td align="left">19</td>
+</tr>
+<tr class="even">
+<td align="right">50</td>
+<td align="left">Joao Sousa</td>
+<td align="left">966</td>
+<td align="left">30</td>
+</tr>
+<tr class="odd">
+<td align="right">51</td>
+<td align="left">Leonardo Mayer</td>
+<td align="left">965</td>
+<td align="left">26</td>
+</tr>
+<tr class="even">
+<td align="right">52</td>
+<td align="left">Albert Ramos-Vinolas</td>
+<td align="left">950</td>
+<td align="left">29</td>
+</tr>
+<tr class="odd">
+<td align="right">53</td>
+<td align="left">Dusan Lajovic</td>
+<td align="left">945</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">54</td>
+<td align="left">Julien Benneteau</td>
+<td align="left">926</td>
+<td align="left">17</td>
+</tr>
+<tr class="odd">
+<td align="right">55</td>
+<td align="left">Tennys Sandgren</td>
+<td align="left">911</td>
+<td align="left">24</td>
+</tr>
+<tr class="even">
+<td align="right">56</td>
+<td align="left">Jan-Lennard Struff</td>
+<td align="left">910</td>
+<td align="left">28</td>
+</tr>
+<tr class="odd">
+<td align="right">57</td>
+<td align="left">Maximilian Marterer</td>
+<td align="left">903</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="right">58</td>
+<td align="left">Sam Querrey</td>
+<td align="left">875</td>
+<td align="left">23</td>
+</tr>
+<tr class="odd">
+<td align="right">59</td>
+<td align="left">Guido Pella</td>
+<td align="left">870</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="left">Matteo Berrettini</td>
+<td align="left">869</td>
+<td align="left">22</td>
+</tr>
+<tr class="odd">
+<td align="right">61</td>
+<td align="left">Benoit Paire</td>
+<td align="left">850</td>
+<td align="left">30</td>
+</tr>
+<tr class="even">
+<td align="right">62</td>
+<td align="left">Taylor Fritz</td>
+<td align="left">825</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">63</td>
+<td align="left">Malek Jaziri</td>
+<td align="left">824</td>
+<td align="left">31</td>
+</tr>
+<tr class="even">
+<td align="right">64</td>
+<td align="left">Denis Istomin</td>
+<td align="left">822</td>
+<td align="left">24</td>
+</tr>
+<tr class="odd">
+<td align="right">65</td>
+<td align="left">Denis Kudla</td>
+<td align="left">815</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="right">66</td>
+<td align="left">Pablo Cuevas</td>
+<td align="left">805</td>
+<td align="left">24</td>
+</tr>
+<tr class="odd">
+<td align="right">67</td>
+<td align="left">Pierre-Hugues Herbert</td>
+<td align="left">799</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">68</td>
+<td align="left">Andrey Rublev</td>
+<td align="left">795</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">69</td>
+<td align="left">Mischa Zverev</td>
+<td align="left">790</td>
+<td align="left">33</td>
+</tr>
+<tr class="even">
+<td align="right">70</td>
+<td align="left">Peter Gojowczyk</td>
+<td align="left">786</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">71</td>
+<td align="left">Feliciano Lopez</td>
+<td align="left">770</td>
+<td align="left">22</td>
+</tr>
+<tr class="even">
+<td align="right">72</td>
+<td align="left">Tomas Berdych</td>
+<td align="left">760</td>
+<td align="left">16</td>
+</tr>
+<tr class="odd">
+<td align="right">73</td>
+<td align="left">Cameron Norrie</td>
+<td align="left">758</td>
+<td align="left">24</td>
+</tr>
+<tr class="even">
+<td align="right">74</td>
+<td align="left">Taro Daniel</td>
+<td align="left">743</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="right">75</td>
+<td align="left">Stan Wawrinka</td>
+<td align="left">740</td>
+<td align="left">17</td>
+</tr>
+<tr class="even">
+<td align="right">76</td>
+<td align="left">Jo-Wilfried Tsonga</td>
+<td align="left">740</td>
+<td align="left">13</td>
+</tr>
+<tr class="odd">
+<td align="right">77</td>
+<td align="left">Lukas Lacko</td>
+<td align="left">730</td>
+<td align="left">26</td>
+</tr>
+<tr class="even">
+<td align="right">78</td>
+<td align="left">Aljaz Bedene</td>
+<td align="left">725</td>
+<td align="left">21</td>
+</tr>
+<tr class="odd">
+<td align="right">79</td>
+<td align="left">Mirza Basic</td>
+<td align="left">715</td>
+<td align="left">28</td>
+</tr>
+<tr class="even">
+<td align="right">80</td>
+<td align="left">Mackenzie McDonald</td>
+<td align="left">714</td>
+<td align="left">27</td>
+</tr>
+<tr class="odd">
+<td align="right">81</td>
+<td align="left">Guillermo Garcia-Lopez</td>
+<td align="left">708</td>
+<td align="left">30</td>
+</tr>
+<tr class="even">
+<td align="right">82</td>
+<td align="left">Jaume Munar</td>
+<td align="left">698</td>
+<td align="left">30</td>
+</tr>
+<tr class="odd">
+<td align="right">83</td>
+<td align="left">Laslo Djere</td>
+<td align="left">688</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left">Jozef Kovalik</td>
+<td align="left">685</td>
+<td align="left">24</td>
+</tr>
+<tr class="odd">
+<td align="right">85</td>
+<td align="left">Evgeny Donskoy</td>
+<td align="left">681</td>
+<td align="left">26</td>
+</tr>
+<tr class="even">
+<td align="right">86</td>
+<td align="left">Vasek Pospisil</td>
+<td align="left">677</td>
+<td align="left">26</td>
+</tr>
+<tr class="odd">
+<td align="right">87</td>
+<td align="left">Mikhail Kukushkin</td>
+<td align="left">676</td>
+<td align="left">23</td>
+</tr>
+<tr class="even">
+<td align="right">88</td>
+<td align="left">Marius Copil</td>
+<td align="left">667</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="right">89</td>
+<td align="left">Lorenzo Sonego</td>
+<td align="left">646</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">90</td>
+<td align="left">Jiri Vesely</td>
+<td align="left">645</td>
+<td align="left">23</td>
+</tr>
+<tr class="odd">
+<td align="right">91</td>
+<td align="left">Federico Delbonis</td>
+<td align="left">645</td>
+<td align="left">25</td>
+</tr>
+<tr class="even">
+<td align="right">92</td>
+<td align="left">Marcos Baghdatis</td>
+<td align="left">630</td>
+<td align="left">20</td>
+</tr>
+<tr class="odd">
+<td align="right">93</td>
+<td align="left">Jason Kubler</td>
+<td align="left">617</td>
+<td align="left">26</td>
+</tr>
+<tr class="even">
+<td align="right">94</td>
+<td align="left">Roberto Carballes Baena</td>
+<td align="left">615</td>
+<td align="left">33</td>
+</tr>
+<tr class="odd">
+<td align="right">95</td>
+<td align="left">Bradley Klahn</td>
+<td align="left">610</td>
+<td align="left">22</td>
+</tr>
+<tr class="even">
+<td align="right">96</td>
+<td align="left">Hubert Hurkacz</td>
+<td align="left">597</td>
+<td align="left">28</td>
+</tr>
+<tr class="odd">
+<td align="right">97</td>
+<td align="left">Yuki Bhambri</td>
+<td align="left">592</td>
+<td align="left">20</td>
+</tr>
+<tr class="even">
+<td align="right">98</td>
+<td align="left">Guido Andreozzi</td>
+<td align="left">592</td>
+<td align="left">22</td>
+</tr>
+<tr class="odd">
+<td align="right">99</td>
+<td align="left">Jared Donaldson</td>
+<td align="left">590</td>
+<td align="left">26</td>
+</tr>
+<tr class="even">
+<td align="right">100</td>
+<td align="left">Yuichi Sugita</td>
+<td align="left">590</td>
+<td align="left">29</td>
+</tr>
+</tbody>
+</table>
 <p><font size="4">取出倒數五名，使用ggplot依照分數劃出長條圖</font><br /></p>
 <pre class="r"><code>df.tennis.info &lt;- df.tennis[-c(1:95),]
 tennis.point &lt;- df.tennis.info$tennis.point %&gt;% as.numeric()
 
 pic &lt;- ggplot(df.tennis.info, aes(x=tennis.player, y=tennis.point))+geom_bar(stat = &quot;identity&quot;)
-results =pic</code></pre>
+pic</code></pre>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABUAAAAPACAMAAADDuCPrAAABg1BMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrYzMzM6AAA6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kJA6kLY6kNtNTU1NTW5NTY5Nbm5Nbo5NbqtNjshZWVlmAABmADpmOgBmOjpmZjpmZmZmZpBmkGZmkJBmkLZmkNtmtttmtv9uTU1ubk1ubm5ubo5ujo5ujqtujshuq8huq+SOTU2Obk2Obm6Ojk2Ojm6Ojo6Oq6uOq8iOq+SOyOSOyP+QOgCQOjqQZjqQZmaQZpCQkLaQtraQttuQ2/+rbk2rjk2rjm6rq46rq8iryOSr5P+2ZgC2Zjq2Zma2kDq2kGa2kJC2tpC2tra2ttu229u22/+2///Ijk3Ijm7Iq27Iq47Iq6vIyI7IyKvI5OTI5P/I///bkDrbkGbbtmbbtpDbtrbb27bb29vb2//b///kq27kq47kyI7kyKvkyMjk5Mjk5P/k///r6+v/tmb/yI7/25D/27b/29v/5Kv/5Mj/5OT//7b//8j//9v//+T///+gTX/gAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO2d8YNc1XmeLzFgmQS78QgDJQ64do1sYoKgjV1MTduY0thK4taxsyRtIqt2HaNAHZUFSyBp//TOzL0ze8/s7Ors7nzv+507z/MDaKXd2e855+yjmbmzq+4IAAAuROceAACgVTr3AAAArdK5BwAAaJXOPQAAQKt07gEAAFqlcw8AANAqnXsAAIBW6dwDAAC0SuceAACgVTr3AAAArdK5BwAAaJXOPQAAQKt07gEAAFql03ya/5eIXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbRDQXNPEgus0wdUGAc01TSy4ThNcbewgoPevz5Y884vFW/femM2ufu/O/FcP35mt6P+IgLrBdZrgamMHAb17bVTJD/pfP/sLApoQXKcJrjZ2ENDD2fPjmD538+jhe7Pn7ox+7+qPNz7EbT0m1zSx4DpNcLWxg4AezF4b/bov58Hs+6vfmt8RfW3zQ9zWY3JNEwuu0wRXG5cP6MN3ju9gzmPZh3N0r/T2+N4oAbWC6zTB1cblA3r/+nP/8Pps9srNcUzvXltV8/714zujBNQMrtMEVxuXD+jqGtKik1sCenv0DOnR5wfO/1kAALLTnf9DDmezV+8cffrubNHOgyGXq+dC53dAx1eQCOhW/vUEca8pgIHu/B9ye93M15Z3R+c1ffje+pVLh1ueAc11JzzBNO7YReBe0wz7KgNXG5cP6Io+lbf7h/PfHR7Cr68qEdAzcMcuAveaZthXGbja2F1A715b3un8cHlBafUc6PCbBPRM3LGLwL2mGfZVBq42dhnQ0YP11cuYxi+yJ6Cn4Y5dBO41zbCvMnC1cemAbnvp5/GL6w9OvoiegJ7AHbsI3GuaYV9l4Grj0gFdXXjvQ3q7D+bquzfHL7InoKfijl0E7jXNsK8ycLVx+YD2F97vvb68hnQ4u/rm0dGH14Y7nvevb30KNNUSJJjGHbsI3GuaYV9l4Grj8gFdXXh/5ubijff6N4anQ4vnRQnoabhjF4F7TTPsqwxcbewgoP2PAH11KOUH35rNvvLm8CfbXwWaawkSTOOOXQTuNc2wrzJwtbGLgJ4ft/WYBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATTuGMXgXtNM+yrDFxtENAE07hjF4F7TTPsqwxcbRDQBNO4YxeBe00z7KsMXG0Q0ATT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BFGRkcDVfd4iqPEmoEJwFZIgKjISuLrPWwQ13jsI6P3rsyXP/GLx1r03ZrOr37vT/9HDd6/NZt+5SUB7cBWSICoyEri6z1sENd47COjda6OAftD/+tlfjNLal5WAElAlCaIiI4Gr+7xFUOO9g4Aezp4fx/S5m0cP35s9t7gPerB44947/RsElIAqSRAVGQlc3ectghrvHQT0YPba6Nd9LA9m31/UdHnf8/71qz8moAtwFZIgKjISuLrPWwQ13pcP6MN3jvv48J1FOI+Ge6W3h7umt0eFJaB77iojQVRkJHB1n7cIarwvH9D715/7h9dns1dujmN699r8nujBuKYElIBKSRAVGQlc3ectghrvywd0dQ1pUcsioGVNl3x+oOJm3YsXAa4wVdznLYILLEN3/g85nM1evXP06buzRS4Phjubi+dCCegmuOLaOrieSXf+D7m9buZry7uj85o+fG/x2qVRQDdfyMRDAlwnBK775Trm8gFdcbi8AH+7fzj/3e0P4QkorhME1/1yHbO7gA73Mz9cXlA65TlQAorrBMF1v1zH7DKgo0wuL7xzFX4DXHFtHVxLLh3Q8qWfK5ZPiK5e/8nrQAdwxbV1cC25dEBXF977kA6tvHtt8eid70TaAFdcWwfXkssHtL/wfu/15TWkw9nVN4+OPry27Oi8qc/yvfAjcMW1dXAtuXxAVxfen7m5eOO9/o0+mff4aUwFuOLaOriW7CCg/Y8AfXW4l/nBt2azr7y5+pN35/38zub9TwKK66TAdb9cx+wioOenYjD34kWAK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2sJARWCK66tg2uJJ6CZ+Pzn3RPowHWa4JqFzj2AntwbsltwnSa4ZqFzD6An94bsFlynCa5Z6NwD6Mm9IbsF12mCaxY6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" width="672" /></p>
 </div>
 
 

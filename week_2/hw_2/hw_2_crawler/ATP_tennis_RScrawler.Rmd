@@ -51,14 +51,15 @@ NROW(tennis.tournplayed)
 *使用NROW確認欄位數是否相同
 ```{r  }
 df.tennis <- data.frame(tennis.rank,tennis.player,tennis.point,tennis.tournplayed)
-results= df.tennis
+df.tennis
+knitr::kable(df.tennis)
 ```
 
 <font size="4">取出倒數五名，使用ggplot依照分數劃出長條圖</font><br />
-```{r pressure, echo=TRUE}
+```{r pic, echo=TRUE}
 df.tennis.info <- df.tennis[-c(1:95),]
 tennis.point <- df.tennis.info$tennis.point %>% as.numeric()
 
 pic <- ggplot(df.tennis.info, aes(x=tennis.player, y=tennis.point))+geom_bar(stat = "identity")
-results =pic
+pic
 ```
