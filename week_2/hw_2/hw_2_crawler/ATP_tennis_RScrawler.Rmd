@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## ATP_RANk_RScrawler:爬取當日最新ATP網球男單排名，並以表格呈現。表格中欄位分別為:選手、目前最新積分、比賽總次數
+## ATP_RANk_RScrawler:爬取當日最新ATP網球男單排名，並以表格呈現。表格中欄位分別為:選手、目前最新積分、比賽總次數。最後，取出倒數五名，使用ggplot依照分數劃出長條圖。
 </font><br />
 
 ```{r url}
