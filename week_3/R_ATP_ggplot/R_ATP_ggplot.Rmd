@@ -1,0 +1,243 @@
+---
+title: "R_ATP_ggplot"
+author: "余采蘋"
+date: "2018年10月3日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ATP網球選手分析:  
+<font size="4">1.ATP Top3選手在1968~2018年間"硬地及草地"比賽獲勝率</font><br />  
+<font size="4">2.列出Novak Djokovic在2018年中不同比賽場地材質(Clay, Hard,Grass,Carpet)獲勝機率比較分析</font><br />  
+<font size="4">3.列出2018各國參賽選手總人數>8的國家</font><br />
+
+  
+  
+
+## 1.ATP Top3選手在1968~2018年間"硬地及草地"比賽獲勝率
+
+
+<font size="4">Download file、解壓縮、列出目錄/文件夾的檔案 </font><br />  
+```{r }
+zip.file <- "TennisData_ATP.zip"
+
+if (!file.exists(zip.file)){
+  download.file('https://github.com/JeffSackmann/tennis_atp/archive/master.zip', destfile = zip.file)
+}
+
+dir.out <- 'tennis_atp-master/'
+if (!dir.exists(dir.out)) unzip(zip.file)
+
+#列出目錄/文件夾的檔案 
+Tennis.file <- list.files(dir.out, pattern = '*.csv', full.names = T)
+print(Tennis.file)
+
+```
+
+
+<font size="4">從上一個結果可以看出zip裡面不只有match還有rankings，但是我只有要用有match的文件，所以用stringr來處理</font><br />  
+<font size="4">#讀取資料，設定cols</font><br />  
+```{r , echo= FALSE}
+
+library(stringr)
+Tennis.mfile <- Tennis.file[str_detect(Tennis.file, "match")]
+
+
+library(readr)
+library(dplyr)
+
+Tennis.col <- cols(
+  .default = col_integer(),
+  tourney_id = col_character(),
+  tourney_name = col_character(),
+  surface = col_character(),
+  tourney_level = col_character(),
+  winner_name = col_character(),
+  winner_ioc = col_character(),
+  winner_age = col_integer(),
+  loser_name = col_character(),
+  loser_ioc = col_character(),
+  loser_age = col_integer(),
+  score = col_character(),
+  round = col_character()
+)
+
+```
+
+
+<font size="4">運用do.call & lapply處理資料</font><br />
+```{r }
+df.tennisMatches <- do.call(bind_rows, lapply(Tennis.mfile, read_csv, col_types = Tennis.col)) 
+df.tennisMatches$Date <- as.Date(as.character(df.tennisMatches$tourney_date), '%Y%m%d')
+df.tennisMatches$Years <- format(df.tennisMatches$Date, format= "%Y")
+```
+
+
+<font size="4">搜尋網路上ATP排名前100名的選手</font><br />
+```{r }
+library(xml2)
+library(rvest)
+res <- read_html("https://www.atpworldtour.com/en/rankings/singles") 
+top100.players <- res %>% html_nodes(".player-cell a") %>% html_text() 
+
+top3.name <- top100.players[1:3]
+```
+
+
+<font size="4">只求前3名的選手名</font><br />
+```{r }
+top3.name <- top100.players[1:3]
+```
+
+
+<font size="4">從data frame中找出跟網站上名字最相近的字，由於web上目前排名14的阿根挺籍選手Diego Schwartzman，在CSV中顯示為Diego Sebastian Schwartzman。</font><br />
+<font size="4">藉由amatch找出相近字串這個方法會一直跑出另一個Diego Sxxxxxx的選手，因此我用手動調整csv檔，將所有的Diego Sebastian Schwartzman replace by Diego Schwartzman。</font><br />
+```{r }
+library(stringdist)
+player.name <- unique(c(df.tennisMatches$winner_name, df.tennisMatches$loser_name))
+similar.name <- amatch(top3.name,player.name, maxDist = 3 )
+data.frame(name.from.web = top3.name, name.from.csv = player.name[similar.name])
+
+top3.name <- player.name[similar.name]
+```
+
+
+<font size="4">運用tibble可以更方便使用dplyr</font><br />
+<font size="4">讀取前3名</font><br />
+```{r }
+
+Tennis.table <- tibble()
+for( my.player in top3.name){
+  perc <- filter(df.tennisMatches, (winner_name==my.player)|(loser_name==my.player))
+  perc$Name <- my.player
+  perc.tab <- perc %>% group_by(Name, Years, surface) %>% summarise("Percentage of win" = sum(winner_name== Name)/n(),
+                                 "Number of matches" = n()) %>% 
+    filter("Number of matches" > 0) %>%
+    filter(surface %in% c("Grass","Clay"))
+  Tennis.table <- bind_rows(Tennis.table,perc.tab)
+}
+```
+
+
+<font size="4">加入ranking</font><br />
+```{r }
+Tennis.table$Name <- paste0(Tennis.table$Name,
+                          '(',
+                          match(Tennis.table$Name, top3.name),
+                          ')')
+Tennis.table <- Tennis.table[complete.cases(Tennis.table),]
+Tennis.table
+```
+
+
+<font size="4">做出ATP Top3選手在1968~2018年間"硬地及草地"比賽獲勝率圖表</font><br />
+<font size="4">結論由圖可了解，對Djokovic& Nadal來說，clay(硬地)材質的環境比較容易獲勝；Federer在草地上發揮得比較平均。</font><br />
+```{r }
+library(ggplot2)
+
+p <- ggplot(Tennis.table, aes(x = as.numeric(Years), y = `Percentage of win`, color=surface))
+p <- p + geom_point() + geom_smooth()
+p <- p + facet_grid(surface~Name)
+p <- p + ylim(c(0.25,1)) + xlim(c(2005,2016))
+print(p)
+
+
+```
+
+
+
+
+##2.列出Novak Djokovic在2018年中不同比賽場地材質(Clay, Hard,Grass,Carpet)獲勝機率比較分析
+
+
+<font size="4">由於我最喜歡的選手為"Novak Djokovic"，因此決定再對他個人進行分析</font><br />
+<font size="4">使用subset，先選出2018中比賽贏&輸時的比賽場地材質(surface)</font><br />
+```{r }
+my.favplayer.w <- subset(df.tennisMatches, winner_name=="Novak Djokovic", select = c(surface))
+my.favplayer.l <- subset(df.tennisMatches,loser_name=="Novak Djokovic", select = c(surface))
+```
+
+
+<font size="4">將輸及贏的場地用rbind結合，算出不同場地材質的比賽總次數</font><br />
+<font size="4">依照不同場地材質(贏次數 / 總次數) = 獲勝機率</font><br />
+```{r }
+
+total.df <- rbind(my.favplayer.w, my.favplayer.l)
+
+perc.df <- as.data.frame(table(my.favplayer.w) / table(total.df) )
+colnames(perc.df) <- c("surface","percentage")
+```
+
+
+
+
+<font size="4">做圖，將顏色改為橘色填滿，外框用黑色，調整柱狀圖寬度</font><br />
+<font size="4">列出Novak Djokovic在不同比賽場地材質獲勝機率</font><br />
+<font size="4">結論由圖可了解，對Djokovic& Nadal來說，Hard(硬地)材質的環境比較容易獲勝</font><br />
+```{r}
+library(ggrepel)
+p.per <- ggplot(perc.df, aes(surface, percentage))+geom_bar(stat='identity',colour="black",  fill= "orange",width = 0.8)+ 
+  theme_bw()
+print(p.per)
+
+```
+
+
+
+##3.列出2018各國參賽選手總人數>8的國家。
+
+
+
+```{r }
+#library
+library(xml2)
+library(rvest)
+library(stringr)
+library(readr)
+library(dplyr)
+```
+
+
+<font size="4">讀取csv檔</font><br />
+```{r }
+Tennis2018.source <-read.csv("file:///C:/Users/user/Desktop/NTU_COOL/week_3/tennis_atp-master/atp_matches_2018.csv")
+```
+
+
+<font size="4">運用sebset選出winner_name, loser_name, winner_ioc, loser_ioc</font><br />
+<font size="4">將col名字改為一樣，用rbind連接，並使用unique</font><br />
+```{r }
+subset.1 <- subset(Tennis2018.source, select = c(winner_name, winner_ioc))
+subset.2 <- subset(Tennis2018.source, select = c(loser_name, loser_ioc))
+colnames(subset.1) <- c("name", "country")
+colnames(subset.2) <- c("name", "country")
+subset.d <- rbind(subset.1, subset.2)
+subset.d <- unique(subset.d)
+s <- as.data.frame(table(subset.d$country))
+colnames(s) <- c("country", "count")
+```
+
+
+<font size="4">由小到大排序後，選出人數>8的國家</font><br />
+```{r }
+
+s <- s[order(s$count),]
+s.select <- s[72:80,]
+
+```
+
+<font size="4">做圖，藍色長條圖</font><br />
+<font size="4">運用geom_text，數據以白色呈現列出選手數量</font><br />
+```{r}
+
+ioc.p <- ggplot(s.select ,aes(x = country, y = count)) +  geom_bar(stat='identity',colour="white",  fill= "blue")+coord_flip() + theme_bw()+
+  geom_text(aes(x = country, y = 1, label = paste0("(",count,")",sep="")),
+            hjust=0, vjust=.5, size = 4, 
+            colour = 'white',fontface = 'bold')+
+  labs(x = 'Country', y = 'Count', 
+       title = 'Country and Count')
+print(ioc.p)
+```

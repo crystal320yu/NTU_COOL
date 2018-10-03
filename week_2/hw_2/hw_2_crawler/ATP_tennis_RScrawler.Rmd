@@ -51,7 +51,6 @@ NROW(tennis.tournplayed)
 *使用NROW確認欄位數是否相同
 ```{r  }
 df.tennis <- data.frame(tennis.rank,tennis.player,tennis.point,tennis.tournplayed)
-df.tennis
 knitr::kable(df.tennis)
 ```
 
