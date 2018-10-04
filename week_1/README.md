@@ -17,7 +17,7 @@
     <li>hw_1 (AT HOME)</li>
      <ul type="circle">
      <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_answer.R">hw_1_answer.R</a></li>   
-     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/guessNumber.R">guessNumber.R</a></li>
+     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_guess_number.R">hw_1_guess_number.R</a></li>
      </ul>
   </ul>
 </p>

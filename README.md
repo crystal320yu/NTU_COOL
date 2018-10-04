@@ -17,7 +17,7 @@
     <li>hw_1 (AT HOME)</li>
      <ul type="circle">
      <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_answer.R">hw_1_answer.R</a></li>   
-     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/guessNumber.R">guessNumber.R</a></li>
+     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_guess_number.R">hw_1_guess_number.R</a></li>
      </ul>
   </ul>
 </p>
@@ -29,7 +29,7 @@
 
   <u>Home 進度</u><br>
     1. 完成practice_1.2.3的練習<br>
-    2. 猜數字遊戲(10/04)
+    2. 猜數字遊戲(10/04) 
 </p>
 
 <p>
