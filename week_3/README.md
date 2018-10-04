@@ -3,7 +3,7 @@
     <li>hw_3 (AT HOME)</li>
      <ul type="circle">
      <li>
-     <a href="https://crystal320yu.github.io/NTU_COOL/week_3/R_ATP_ggplot/R_ATP_ggplot.html">hw_3_R_ATP_ggplot</a>
+     <a href="https://crystal320yu.github.io/NTU_COOL/week_3/R_ATP_ggplot/R_ATP_ggplot.html">hw_3_R_ATP_ggplot.html</a>
        <ul type = "square"> 
       </ul>
      </ul>
