@@ -20,7 +20,16 @@
      </ul>
   </ul>
 </p>
+<p>
+  <u>Class 進度</u><br> 
+    1. 設立Repository<br> 
+    
 
+
+  <u>Home 進度</u><br>
+    1. 完成practice_1.2.3的練習<br>
+    2. 猜數字遊戲(10/04)
+</p>
 
 <p>
   <b>Week_2</b>
