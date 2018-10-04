@@ -16,7 +16,8 @@
   <ul type="disc">
     <li>hw_1 (AT HOME)</li>
      <ul type="circle">
-     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_answer.R">hw_1_answer.R</a></li>
+     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/hw_1_answer.R">hw_1_answer.R</a></li>   
+     <li><a href="https://github.com/crystal320yu/NTU_COOL/blob/master/week_1/guessNumber.R">guessNumber.R</a></li>
      </ul>
   </ul>
 </p>
