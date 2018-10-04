@@ -25,7 +25,7 @@
     讀取CSV.檔 + url爬取ATP男單網球排名來完成，並做出圖表。(使用SelectorGadget、ggplot)
     <br>
      (1.) ATP Top3選手在1968~2018年間"硬地及草地"比賽獲勝率<br>
-     (2.) 列出Novak Djokovic在2018年中不同比賽場地材質(Clay, Hard,Grass,Carpet)獲勝機率比較分析<br>  
+     (2.) 列出Novak Djokovic在2018年中不同比賽場地材質(Clay, Hard,Grass,Carpet)獲勝機率比較分析<br>
      (3.) 列出2018各國參賽選手總人數>8的國家<br>
     4. map作業
 </p>
