@@ -2,7 +2,6 @@
 
 ```python
 # Tic tac toe
-#https://inventwithpython.com/chapter10.html
 import random
 ```
 
