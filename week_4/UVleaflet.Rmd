@@ -1,0 +1,60 @@
+---
+title: "uv_leaflet"
+author: "余采蘋"
+date: "2018年10月10日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## UV_leaflet
+將uv資料，在地圖上以標記(marker)呈現按，marker後可以跳出popup呈現資料內容。   
+marker將有地點 & uv指數
+
+```{r }
+library(ggplot2)
+library(maps)
+library(ggmap)
+library(leaflet)
+```
+
+依照上週加分題匯出台灣級經緯度
+```{r }
+#設定bbox,輸入臺灣經緯度
+taiwan<- c(left=119, bottom=21, right=123, top=26)
+get_stamenmap(taiwan, zoom=7, maptype = "terrain") %>% ggmap()
+
+
+#讀入csv，將各地經緯度列出
+uv <- read.csv("UV_20151116152215.csv", encoding="utf-8")
+lon <- uv$WGS84Lon
+lat <- uv$WGS84Lat
+site <- as.character(uv$sitename)
+County <- as.character(uv$County)
+uvdata <- uv$uv
+
+```
+
+依照uv做散布圖，並根據等級不同，圓圈大小不同
+```{r }
+
+map <- get_stamenmap(taiwan, zoom=7, maptype = "terrain")
+firstmap = ggmap(map) + 
+           geom_point(aes(x = lon, y = lat, size = uv), data = uv) +
+           scale_size(range = c(0, 3))
+
+```
+
+
+將uv資料在地圖上以標記(marker)呈現按，marker後可以跳出popup呈現地點 & uv指數資料內容。   
+
+```{r }
+pop <- leaflet(data= uv) %>% 
+  addTiles() %>% 
+  addMarkers(lon, lat, popup=paste("地點：", site, "<br>", "紫外線指數:", uvdata)) %>%
+  addProviderTiles(providers$OpenStreetMap)
+
+pop
+```

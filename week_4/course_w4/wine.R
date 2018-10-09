@@ -7,6 +7,7 @@ library(SnowballC)
 library(RColorBrewer)
 library(wordcloud)
 library(readr)
+library(lm)
 library(rvest)
 
 w.web <-read_html("https://financesonline.com/top-10-most-expensive-red-wines-in-the-world-cabernet-sauvignon-tops-the-list/")
