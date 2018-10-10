@@ -136,7 +136,7 @@
 
 
   <u>Home 進度</u><br>
-    1. 在家完成leaflet，做出uv 資訊2k7ㄐㄩㄜ<br>
+    1. 在家完成leaflet，做出uv 資訊marker<br>
     2. 在家完成philosophy,kiehl's的文字雲(分兩個)<br>
     3. 作業中以philosophy的評論者膚質做出wordcloud<br> 
       (1.)藉由文字雲比較philosophy & kielh's廠牌的卸妝乳 <br>  
