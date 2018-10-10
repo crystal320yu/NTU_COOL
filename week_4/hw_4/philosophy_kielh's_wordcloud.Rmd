@@ -1,0 +1,131 @@
+---
+title: "philosophy.wordcloud"
+author: "<e9>謕<97><87><ef><98><8b>"
+date: "2018<e6><92><9f><b4>10<e6><9c><88>10<e6>謑<99>"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## philosophy.wordcloud
+
+1.藉由文字雲比較philosophy & kielh's廠牌的卸妝乳   
+2.針對感覺評價比較好的，查看使用者膚質類型
+---------------------------------------------------------------------------------------------------   
+#1.藉由文字雲比較philosophy & kielh's廠牌的卸妝乳  
+
+```{r }
+library(RColorBrewer)
+library(wordcloud)
+library(readr)
+library(xml2)
+library(rvest)
+library(NLP)
+library(tm)
+library(httr)
+```
+
+建立for迴圈，使用influenster.com的評論資料   
+爬取2-20頁"philosophy purity made simple one-step facial cleanser"的使用心得，使用者info
+
+```{r }
+for (j in 2:19)
+{
+  link <- url(paste('https://www.influenster.com/reviews/philosophy-purity-made-simple-one-step-facial-cleanser?review_page=',j, sep=''), "rb")
+  phwash = read_html(link)
+  results <- (phwash %>% html_nodes('.review-author-user-profile , .review-text')%>% html_text())
+  phwash.doc <- Corpus(VectorSource(results))
+  f.results <- (phwash %>% html_nodes('.review-author-user-profile')%>% html_text())
+  face.doc <- Corpus(VectorSource(f.results))
+}
+
+```
+
+
+整理資料:去除標點符號、去除多餘空格、取詞幹、停止詞集、去詞一些我覺得詞頻太多的字   
+使用tm包以外的函數，需要用content_transformer()“包”起來，再被tm_map()調用。
+```{r }
+clean <- {
+  phwash.space <-content_transformer(function(x , pattern ) gsub(pattern, " ", x))
+  phwash.doc <- tm_map(phwash.doc, removePunctuation )
+  phwash.doc <- tm_map(phwash.doc, removeWords, stopwords("english") )
+  phwash.doc <- tm_map(phwash.doc, stripWhitespace )
+  phwash.doc <- tm_map (phwash.doc, stemDocument)
+  phwash.doc <- tm_map (phwash.doc, removeWords, c("cleanser", "use","this","remove","<e2>"))
+  
+}
+```
+
+運用TermDocumentMatrix建立詞頻矩陣
+```{r }
+
+ptdm<- TermDocumentMatrix(phwash.doc)
+pm <- as.matrix(ptdm)
+pv <- sort(rowSums(pm),decreasing=TRUE)
+pd <- data.frame(word = names(pv),freq=pv)
+```
+
+
+head出現詞頻出現最多的，用ggplot做出長條圖
+```{r }
+freq <- rowSums(as.matrix(ptdm))
+pd.select<-head(sort(freq, decreasing = T))
+d.select <- head(pd)
+library(ggplot2)
+ggplot(d.select, aes(x = word, y = freq)) + geom_bar(stat = "identity")
+```
+
+做出文字雲
+```{r }
+set.seed(1234)
+wordcloud(words = pd$word, freq = pd$freq, min.freq = 3,
+          max.words=300, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+
+
+#2.針對感覺評價比較喜歡的的，查看使用者膚質類型
+philosophy文字雲中因為看到gentl,整體給人感覺比較溫和   
+所以選擇philosophy   
+一樣的步驟整理資料
+
+```{r }
+cleanw <-{
+wash.space <-content_transformer(function(x , pattern ) gsub(pattern, " ", x))
+face.doc <- tm_map(face.doc, removePunctuation )
+face.doc <- tm_map(face.doc, removeWords, stopwords("english") )
+face.doc <- tm_map(face.doc, stripWhitespace )
+face.doc <- tm_map (face.doc, stemDocument)
+}
+
+
+{
+ftmd<- TermDocumentMatrix(face.doc)
+fm <- as.matrix(ftmd)
+fv <- sort(rowSums(fm),decreasing=TRUE)
+fd <- data.frame(word = names(fv),freq=fv)
+}
+
+
+```
+
+做出文字雲
+```{r }
+set.seed(123)
+wordcloud(words = fd$word, freq = fd$freq, min.freq = 2,
+          max.words=300, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
