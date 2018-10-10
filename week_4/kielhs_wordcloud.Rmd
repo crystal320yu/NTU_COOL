@@ -26,7 +26,6 @@ link = url(paste('https://www.influenster.com/reviews/kiehls-ultra-facial-cleans
 wash.web =read_html(link)
 wash.con <- (wash.web %>% html_nodes(".review-author-user-profile , .review-text") %>% html_text())
 wash.doc <- Corpus(VectorSource(wash.con))
-inspect(wash.doc)
 }
 
 cleanw <-{

@@ -1,7 +1,7 @@
 ---
 title: "philosophy.wordcloud"
-author: "余采蘋"
-date: "2018/10/10"
+author: "<e9>謕<97><87><ef><98><8b>"
+date: "2018<e6><92><9f><b4>10<e6><9c><88>10<e6>謑<99>"
 output:
   html_document: default
   pdf_document: default
