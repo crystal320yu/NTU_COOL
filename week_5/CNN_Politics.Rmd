@@ -133,7 +133,7 @@ selectr <-as.data.frame(sums)
 selectr <- as.data.frame(selectr)
 colnames(selectr)
 
-
+selectr
 ```
 
 遇到問題，一直無法將selectr跟Term轉成dataframe

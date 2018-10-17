@@ -145,9 +145,5 @@
 
   <u>Home 進度</u><br>
     1.CNN Politics做tf-idf、針對Trump及GOP做tf-idf分析<br>
-    2. 在家完成philosophy,kiehl's的文字雲(分兩個)<br>
-    3. 作業中以philosophy的評論者膚質做出wordcloud<br> 
-      (1.)藉由文字雲比較philosophy & kielh's廠牌的卸妝乳 <br>  
-      (2.)針對感覺評價比較好的(主觀覺得)，查看使用者膚質類型 <br>  
     
 </p>
