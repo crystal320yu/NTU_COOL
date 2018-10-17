@@ -1,3 +1,20 @@
+---
+title: "CNNpolitics"
+author: "余采蘋"
+date: "2018年10月18日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## CNN Politics做tf-idf、針對Trump及GOP做tf-idf分析
+
+1.先爬出CNN Politics 共54篇新聞內文，對文字做tf-idf處理   
+2.篩選出同時出現出現"Trump" & "GOP(共和黨)" 的新聞 ，做tf-idf處理，並顯現圖表
+
+```{r}
 library(xml2)
 library(rvest)
 library(NLP)
@@ -10,20 +27,27 @@ library(wordcloud)
 library(RColorBrewer)
 library(Matrix)
 library(rvest)
+library(stringr)
 
 #將CNN"politics"版第一頁每篇新聞html抓下來，存成txt檔
 k <- readLines("file:///C:/Users/user/Desktop/NTU_COOL/week_5/news.txt" )
+
 
 urlList <- list()
 for(i in 2:99){
   url <- k[i] %>% as.character()
   urlList <- rbind(urlList, url)
 }
-
 urlList = unique(urlList)
-text1 = news.doc
+
+
+```
+
+
+讀取新聞內文，一次讀太多會被網站封鎖，所以設停頓3秒
+```{r}
 news.doc <- list()
-for(url in urlList[2:56])
+for(url in urlList[2:55])
 {
   print(url)
   html <- read_html(url) %>% html_nodes(".zn-body__paragraph") %>% html_text()
@@ -37,7 +61,10 @@ for(url in urlList[2:56])
   Sys.sleep(3)
   print("Im awake")
 }
+```
 
+清理文字
+```{r}
 clean <- as.matrix(news.doc) 
 clean <- as.character(clean)
 clean <- Corpus(VectorSource(clean))
@@ -52,8 +79,10 @@ cleanc <-{
   clean <- tm_map(clean, removeNumbers )
   clean <- tm_map (clean, stemDocument)
 }
+```
 
-
+td-idf
+```{r}
 d.corpus <- Corpus(VectorSource(clean))
 tdm <- TermDocumentMatrix(clean)
 inspect(tdm)
@@ -73,7 +102,11 @@ for(i in 1:nrow(tdm)){
   }
 }
 
+doc.tfidf
+```
 
+篩選出同時有"Trump" & "GOP(共和黨)"的文章，將tf-idf做rowsum並做出圖表
+```{r }
 cleanText = c()
 for (t in clean)
 {
@@ -96,8 +129,12 @@ for (i in 1:54)
 newTFIDF = as.data.frame(doc.tfidf) 
 select <- newTFIDF[,GOPTexts]
 sums = rowSums(x=select)
-selectr <-as.data.frame(sums) 
+selectr <-as.data.frame(sums)
+selectr <- as.data.frame(selectr)
+colnames(selectr)
 
-ggplot(selectr) + geom_col(show.legend = FALSE)
-sums[0]
+
+```
+
+遇到問題，一直無法將selectr跟Term轉成dataframe
 
