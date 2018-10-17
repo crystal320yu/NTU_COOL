@@ -128,15 +128,23 @@
   </ul>
 </p>
 
-<p>
-  <u>Class 進度</u><br> 
-    1. 在課堂上爬知名紅酒作成文字雲<br> 
-    2. 還是不太清楚，如何拿到ggmap的"key"。<p>
-    
 
+<<p>
+  <b>Week_5</b>
+</p>
+
+<p>
+  <ul type="disc">
+    <li>course_4 (Home)</li>
+     <ul type="circle">
+     <li><a href="https://crystal320yu.github.io/NTU_COOL/week_5/CNN_Politics.html">CNN_Politics.html</a></li>   
+     </ul>
+  </ul>
+</p>
+<p>
 
   <u>Home 進度</u><br>
-    1. 在家完成leaflet，做出uv 資訊marker<br>
+    1.CNN Politics做tf-idf、針對Trump及GOP做tf-idf分析<br>
     2. 在家完成philosophy,kiehl's的文字雲(分兩個)<br>
     3. 作業中以philosophy的評論者膚質做出wordcloud<br> 
       (1.)藉由文字雲比較philosophy & kielh's廠牌的卸妝乳 <br>  
