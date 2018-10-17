@@ -1,0 +1,29 @@
+//<script>
+bouncex.state = {"newvid":false,"iol":false,"tn":1539772803,"pvid":5,"gdpr":false,"casl":false,"request_token":"31bce27485ebfa2f3446226e256a9ca81200f4358dedfdfb986f513b9760ef0c","rc":false,"mobile":false,"vip":"140.112.24.205","geo":{"country_code":"TW","country_code3":"TWN","country_name":"Taiwan","region":"03","city":"Taipei","postal_code":null,"latitude":25.047799999999995,"longitude":121.53179999999998,"area_code":null,"dma_code":null,"metro_code":null,"continent_code":"AS","zip":null,"country":"TW","region_name":"T'ai-pei"}};
+bouncex.cookie = {"v":{"completed_signup":false},"sid":22,"fvt":1520423665,"vid":1539770991177285,"ao":4,"lp":"https%3A%2F%2Fedition.cnn.com%2F","as":0,"vpv":5,"d":"d","r":"www.google.com.tw","cvt":1539770991,"gcr":3,"m":0,"did":"5095783777015984124","lvt":1539772803,"campaigns":{"774328":{"vv":3,"lvt":1539771012},"801931":{"lvt":1538103267,"lavid":1,"la":1538103267,"fsa":1538103267,"as":1,"ao":1},"806361":{"lvt":1539771023,"vv":1},"806369":{"lvt":1539771008,"vv":0}}};
+bouncex.brandStyles = false;
+bouncex.webfonts = false;
+bouncex.campaigns = false;
+bouncex.creatives = false;
+bouncex.debug = false;
+bouncex.testmode = {"bxtest":false,"office":false,"bxdev":false};
+
+if (bouncex.gbi) {
+	bouncex.gbi.stacks = false;
+}
+
+if (bouncex.website) {
+	bouncex.website.gbi2Enabled = false;
+	bouncex.website.sspConfig = false;
+}
+
+
+bouncex.tryCatch(function(){
+	if(bouncex.browser.msie){
+		bouncex.setTimeout2(function(){
+			bouncex.init();
+		}, 0);
+	} else {
+		bouncex.init();
+	}
+})();

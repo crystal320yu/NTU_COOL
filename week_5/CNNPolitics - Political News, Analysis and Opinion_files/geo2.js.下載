@@ -1,0 +1,16 @@
+(function(){
+  window['optimizely'] = window['optimizely'] || [];
+  window['optimizely'].push(['activateGeoDelayedExperiments', {
+    'location':{
+      'city': "TAIPEI",
+      'continent': "AS",
+      'country': "TW",
+      'region': ""
+    },
+    'ip':"140.112.24.128"
+  }]);
+})
+//
+()
+
+;

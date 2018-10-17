@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!-- saved from url=(0145)https://s0.2mdn.net/ads/richmedia/studio/pv2/60296744/20170804031230448/index.html?e=69&renderingType=2&leftOffset=0&topOffset=0&c=v0sFn99MLF&t=1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="./TweenMax.min.js.下載"></script>
+    <script src="./preloadjs-0.6.1.min.js.下載"></script>
+	<script src="./Enabler_01_186.js.下載" type="text/javascript"></script>
+	    
+
+    <style type="text/css"> #main_container{ visibility: hidden; z-index:20 } </style>    
+    
+    <script language="javascript">
+
+		//Initialize Enabler
+		if (Enabler.isInitialized()) {
+
+			init();
+		
+		} else {
+
+			Enabler.addEventListener(studio.events.StudioEvent.INIT, init);
+		}
+
+		//Run when Enabler is ready
+		function init() {
+
+			//Load in Javascript
+			if(Enabler.isPageLoaded()) {
+
+				politeInit();
+			
+			} else {
+
+				Enabler.addEventListener(studio.events.StudioEvent.PAGE_LOADED, politeInit);
+
+			}
+		}
+
+		function politeInit() {
+
+			console.log("----- politeInit");
+
+			preload = new createjs.LoadQueue(true);
+
+			manifest = [
+
+
+				{src:Enabler.getUrl('images/img.jpg'), id:"image"},
+				{src:Enabler.getUrl('images/copy.png'), id:"copy"},
+				{src:Enabler.getUrl('images/footer_bg.png'), id:"footer_bg"},
+				{src:Enabler.getUrl('images/logo.png'), id:"logo"},
+
+
+				{src:Enabler.getUrl('js/banner.js'), id:"banner"},
+				{src:Enabler.getUrl("css/style.css"), id:"style"}
+
+			];
+
+			preload.addEventListener("complete", handleManifastLoadComplete);
+			preload.addEventListener("fileload", handleFileLoaded);
+			preload.loadManifest(manifest);
+		}
+
+		function handleFileLoaded(event) {
+
+			
+
+			var item = event.item;
+			var id = item.id;
+			var result = event.result;
+
+			console.log("----- handleFileLoaded - " + item.id);
+
+			switch (item.type) {
+
+				case createjs.LoadQueue.CSS:
+					(document.head || document.getElementsByTagName("head")[0]).appendChild(result);
+				break;
+
+				case createjs.LoadQueue.IMAGE:
+					// document.body.appendChild(result);
+				break;
+
+				case createjs.LoadQueue.JAVASCRIPT:
+					document.body.appendChild(result);
+				break;
+
+			}
+		}
+
+		function handleManifastLoadComplete(event) {
+
+	  		console.log("----- handleManifastLoadComplete");
+
+	 		InitializeBanner();
+	 	}
+		
+		function InitializeBanner() {
+			
+			console.log('----- InitializeBanner');
+			
+			setUp();
+		}
+
+	</script>
+<style type="text/css">@charset "UTF-8";
+
+/** 
+  * Global styles
+**/
+#main_container {
+	margin: auto;
+	overflow: hidden;
+	border: 1px solid black;
+	box-sizing: border-box;
+}
+
+#main_content {
+	background: #0d56aa;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+}
+
+.fullsize {
+	position: absolute;
+	width: 300px;
+	height: 250px;
+	top: 0px;
+	left: 0px;
+}
+
+
+#image {
+	position: absolute;
+	width: 306px;
+	height: 408px;
+	top: 0px;
+	left: 0px;
+	//background-image: url('images/img.jpg');
+}
+
+#copy1 {
+	background-image: url('images/copy1.png');
+}
+
+#copy2 {
+	background-image: url('images/copy2.png');
+}
+
+#text_bg {
+	position: absolute;
+	width: 300px;
+	height: 130px;
+	top: 126px;
+	left: 0px;
+	background-color: #0d56aa;
+}
+
+#footer_bg {
+	background-image: url('images/footer_bg.png');
+}
+
+#logo {
+	background-image: url('images/logo.png');
+}
+
+/** 
+  * Background clickthrough style
+**/
+#background_exit {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	opacity: 0;
+	z-index: 400;
+}</style></head>
+<body>
+    <div id="main_container" class="fullsize" style="visibility: visible;">
+        <div id="main_content">
+        	
+        	
+        	<div id="text_bg"></div>
+
+        	<div id="image" style="transform: matrix(0.82, 0, 0, 0.82, -35, -50);"> <img src="./img.jpg" width="380" height="506">  </div>
+
+        	<div id="copy1" class="fullsize" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"></div>
+
+        	<div id="copy2" class="fullsize" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"></div>
+
+        	<div id="footer_bg" class="fullsize"></div>
+
+        	<div id="logo" class="fullsize"></div>
+
+        </div>
+        <button id="background_exit"></button>
+    </div>
+
+
+
+<script>// Stores DOM references.var dom = {};var playCount = 0;var playLimit = 5;// ---------------------------------------------------------------------------------// CREATIVE SETUP// ---------------------------------------------------------------------------------setUp = function() {    console.log("----- setUp");    setupDom();    eventListeners();    resetAnimations();    createAnimations();    dom.mainContainer.style.visibility = 'visible';   	playAnimations();}/** * Setup of the DOM element references.**/setupDom = function() {    console.log("----- setupDom");  	dom.mainContainer = document.getElementById('main_container');	dom.mainContent = document.getElementById('main_content');    dom.bgExit = document.getElementById('background_exit');    dom.image = document.getElementById('image');    dom.text_bg = document.getElementById('text_bg');    dom.copy1 = document.getElementById('copy1');    dom.copy2 = document.getElementById('copy2');}/** * Adds event listeners within the creative.**/eventListeners = function() {    console.log("----- eventListeners");    dom.bgExit.addEventListener('click', exitHandler, false);	}// ---------------------------------------------------------------------------------// ANIMATION// ---------------------------------------------------------------------------------function resetAnimations() {    console.log("----- resetAnimations");        TweenLite.to(dom.copy1, 0, {opacity:0, y:0});    //TweenLite.to(dom.image, 0, {x:-200, y:40, scale:4})        TweenLite.to(dom.copy2, 0, {opacity:0, y:0});    //TweenLite.to(dom.image, 0, {x:-70, y:-100, scale:1.2})    TweenLite.to(dom.image, 0, {x:-70, y:-280, scale:1.5})}function createAnimations() {    console.log("----- createAnimations");    Animation = new TimelineMax({paused:true});    Animation.to(dom.image, 3, {delay:1, x:-35, y:-50, scale: 0.82, ease: Power1.easeOut});    Animation.to(dom.copy1, 2, {delay:0, opacity:1, y:0});    Animation.to(dom.copy2, 1, {delay:-0.5, opacity:1, y:0});}function playAnimations() {	console.log("----- playAnimations");    Animation.gotoAndPlay(0);}function onAnimationComplete() {    console.log("----- onAnimationComplete");    playCount++;    if (maxLoops() === true) {        Animation.pause();        } else {        resetAnimations();        playAnimations();    }}function maxLoops() {    console.log("----- checkLoops");    if (playCount == playLimit) {        return true;    }}exitHandler = function(e) {    console.log("----- exitHandler");    //Animation.kill();    //resetAnimations();    //playAnimations();	Enabler.exit('click');	}</script></body></html>
