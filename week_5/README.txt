@@ -14,5 +14,5 @@
 
   <u>Home 進度</u><br>
     1.CNN Politics做tf-idf、針對Trump及GOP做tf-idf分析<br>
-    
+    *一直無法將資料從list轉成dataframe檔作圖
 </p>
