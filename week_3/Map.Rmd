@@ -1,0 +1,39 @@
+---
+title: "Map"
+author: "余采蘋"
+date: "2018年10月18日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 地圖視覺化
+由get_stamenmap取得台灣地圖，配上uv資料做出散布圖
+
+
+設定bbox,輸入臺灣經緯度
+```{r }
+library(maps)
+library(ggmap)
+library(ggplot2)
+taiwan<- c(left=119, bottom=21, right=123, top=26)
+k <- get_stamenmap(taiwan, zoom=7, maptype = "terrain") 
+ggmap(k)
+```
+
+
+讀入csv，將各地經緯度列出
+```{r }
+uv <- read.csv("UV_20151116152215.csv", encoding="big-5")
+uv$lon <- uv$WGS84Lon
+uv$lat <- uv$WGS84Lat
+```
+依照uv做散布圖
+```{r }
+map <- get_stamenmap(taiwan, zoom=7, maptype = "terrain")
+ggmap(map) + 
+  geom_point(aes(x = lon, y = lat, size = uv), data = uv) +
+  scale_size(range = c(0, 3))
+```

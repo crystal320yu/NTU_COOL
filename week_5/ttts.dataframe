@@ -1,0 +1,10 @@
+
+
+ttt <- TermDocumentMatrix(clean)
+tttm <- as.matrix(ttt)
+ttts = as.data.frame(tttm)
+names(ttts) = doc
+doc = paste("doc", seq(1,54,1), sep = "")
+ttts$word = row.names(tttm)
+ttts.1 = ttts[ ,c(55, 1:54)]
+row.names(ttts.1) = NULL
