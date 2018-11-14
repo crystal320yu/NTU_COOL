@@ -1,0 +1,366 @@
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(devtools)
+#install_github("XD-DENG/ECharts2Shiny")
+library(shiny)
+library(ECharts2Shiny)
+library(readr)
+library(xml2)
+library(rvest)
+library(NLP)
+library(tm)
+library(tmcn)
+library(htmltools)
+library(tidytext)
+library(wordcloud)
+library(RColorBrewer)
+library(Matrix)
+library(rvest)
+library(sentimentr)
+library(forecast)
+#install.packages('rsconnect')
+library(rsconnect)
+rsconnect::setAccountInfo(name='crystal0230', token='9B297C647247E638B707B23262467F33', secret='MhLGw20ABeSFi1Hdp0irZxwXXjrNvDDS3Uq5c+hB')
+
+#Load data
+{TT <- read.csv("YB_total.csv")
+TT<-TT[,1:2]
+colnames(TT)<- c("Year","Population")
+TT <- data.frame(TT)}
+
+Lr <-  read_csv("l_residence.csv",  
+                col_types = cols(`2000` = col_number(), 
+                                 `2001` = col_number(), `2002` = col_number(), 
+                                 `2003` = col_number(), `2004` = col_number(), 
+                                 `2005` = col_number(), `2006` = col_number(), 
+                                 `2007` = col_number(), `2008` = col_number(), 
+                                 `2009` = col_number(), `2010` = col_number(), 
+                                 `2011` = col_number(), `2012` = col_number(), 
+                                 `2013` = col_number(), `2014` = col_number(), 
+                                 `2015` = col_number(), `2016` = col_number(), 
+                                 `2017` = col_number()))
+Lrdf <- data.frame(Lr)
+colnames(Lrdf)<-c("country","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017")
+row.names(Lrdf)<- Lrdf$country
+Lrdf <- Lrdf[,2:19]
+
+# Define UI for data upload app ----
+ui <- fluidPage(
+  
+  # App title ----
+  titlePanel("Immigrants of USA"),
+  
+  tabsetPanel(
+    tabPanel("World",
+             tabsetPanel(
+               tabPanel("Total Population",
+                        sidebarLayout(
+                          sidebarPanel(
+                            sliderInput("yearinput",
+                                        label = "range of year",
+                                        min = min(TT$Year, na.rm = TRUE), 
+                                        max = max(TT$Year, na.rm = TRUE), 
+                                        value = c(2000, max(TT$Year))),
+                            selectInput("totalpopulationplottype",
+                                        "Immigration Plot type:",
+                                        choices = c("bar","line")),
+                            selectInput("totalpopulationgenderplottype",
+                                        "Gender Plot type:",
+                                        choices = c("bar","stack", "violin", "pie")),
+                            numericInput("predictext", label = h4("Predict population :"), 
+                                         value = 2020)),
+                          mainPanel(
+                            tabsetPanel(
+                              tabPanel("Immigration",
+                                       label="Total Immigrant Population",
+                                       plotOutput("WorldPopulationPlot")),
+                              tabPanel("Gender",
+                                       label = "Gender of Total Immigrant",
+                                       plotOutput("genderbar")),
+                              tabPanel("Predict",
+                                       label= "Forecast Total Immigrant Population",
+                                       plotOutput("predictplot"))
+                            )
+                            ))),
+               tabPanel("Region",
+                        sidebarLayout(
+                          sidebarPanel(
+                            selectInput("totalplottype",
+                                        "Plot type:",
+                                        choices = c("area","stack","line")
+                                        ),
+                            sliderInput("yearperiods",
+                                        label = "Range of year",
+                                        min = 2000, 
+                                        max = 2017, 
+                                        value = c(2000, 2017)),
+                            checkboxGroupInput("CountryCheck", 
+                                               label = h3("Select Region"), 
+                                               choices = list(
+                                                 "Europe" = "Europe",
+                                                 "Canada and Newfoundland" = "Canada.and.Newfoundland", 
+                                                 "Mexico" = "Mexico" ,
+                                                 "Caribbean" = "Caribbean",
+                                                 "Central America" = "Central.America",
+                                                 "South America" = "South.America",
+                                                 "China"="China",
+                                                 "South East Asia"="South_East_Asia",
+                                                 "Middle East"="Middle_East",
+                                                 "Africa" = "Africa",
+                                                 "Oceania" = "Oceania"),
+                                               selected = c("Europe","Asia","Canada.and.Newfoundland", "Mexico" ,"Caribbean","Central.America","South.America","China","South_East_Asia","Middle_East","Africa","Oceania")),
+                            hr(),
+                            fluidRow(column(3, verbatimTextOutput("value")))
+                          ),
+                          
+                          mainPanel(
+                            plotOutput("WorldRegionPlot")))))),
+    tabPanel("Trump",
+             tabsetPanel(
+               tabPanel("Policy",
+                        sidebarLayout(
+                          sidebarPanel(
+                            selectInput("sentimenttype", "Choose a type:",
+                                        choices = c("Emotion", "Polarity", "Wordcloud"))
+                            ),
+                        
+                            mainPanel(
+                              plotOutput("sentimantsbar")                          )
+                        )),
+               tabPanel("Wordcloud", 
+                 sidebarLayout(
+                   sidebarPanel(
+                     sliderInput("minfreq",
+                                 "Minimum Frequency:",
+                                  min = 1,  max = 50, value = 15),
+                     sliderInput("maxfreq",
+                                 "Maximum Number of Words:",
+                                  min = 1,  max = 300,  value = 100)
+                   ),
+                   mainPanel(
+                     plotOutput("WorldcloudTrump")
+                   )
+                 )
+               )))))
+
+
+# Define server logic to read selected file ----
+server <- function(input, output) {
+  
+  output$WorldPopulationPlot <- renderPlot({
+    filtered <-(TT %>%
+                  filter(Year >= input$yearinput[1],
+                         Year <= input$yearinput[2]))
+    
+    gtotalpopulationplottype <- geom_bar(stat = "identity",width = 0.9 ,fill="#FF9999")
+    
+    if(input$totalpopulationplottype != "bar" ){
+      gtotalpopulationplottype <- geom_line(stat = "identity",width = 2 ,color="#FF9999",size=1.5)
+    }
+    ggplot(filtered, aes(Year, Population))+ gtotalpopulationplottype + labs(title="Total Immigrant Population")
+
+  })
+  
+  output$genderbar <-renderPlot({
+    genderdata <- read_csv("total_sex.csv", 
+                           col_types = cols(Population = col_number(), 
+                                            Year = col_character(),
+                                            Percent= col_number(),
+                                            Sum = col_number()))
+    genderdata <- data.frame(genderdata)
+    colnames(genderdata)<- c("Year","Sex","Population","Percent","Sum")
+    genderfiltered <-(genderdata %>%
+                      filter(Year >= input$yearinput[1],
+                             Year <= input$yearinput[2]))
+    #ggplottotalpopulationgenderplottype<- ggplot(genderfiltered, aes(Year,Population))
+    #gtotalpopulationgenderplottype <- geom_col (stat = "identity", aes(color=Sex, fill=Sex),position = position_stack(reverse = TRUE))
+    p <- ggplot(genderfiltered, aes(Year,Population)) +  geom_col (stat = "identity", aes(color=Sex, fill=Sex),position = position_stack(reverse = TRUE))+ labs(title="Gender of Total Immigrant")
+    if(input$totalpopulationgenderplottype == "bar"){
+      p <- ggplot(genderfiltered, aes(Year,Population))+ geom_bar (stat = "identity", aes(color=Sex, fill=Sex),position = position_dodge(0.8),
+                                                  width = 1)+ labs(title="Gender of Total Immigrant")
+    }
+    if(input$totalpopulationgenderplottype == "violin"){
+      p<- ggplot(genderfiltered, aes(Year,Population)) +geom_violin ()+ labs(title="Gender of Total Immigrant")
+    }
+    if(input$totalpopulationgenderplottype == "pie"){
+      p <- ggplot(genderfiltered,aes(x=Year,y=Percent,fill=Sex))+geom_bar(width=1,stat="identity")+ coord_polar("y")+ facet_wrap(~Year)+ labs(title="Gender of Total Immigrant")
+    
+
+    }
+   
+     
+      p
+    #ggplot(genderfiltered, aes(Year, Population))+geom_bar(stat = "identity",width = 0.9 ,fill="#FF9999")
+  })
+  
+  output$predictplot <- renderPlot({
+
+    
+    
+    TT.ts <- ts(TT$Population, start = 1950,  deltat = 1)
+    plot(TT.ts, main = "Population trend of 1950 ~ 2017", xlab = "Years", ylab = "Population")
+    acf(TT.ts)
+    pacf(TT.ts)
+    auto.arima(TT.ts)
+    model1 <- arima(TT.ts, order =c(1,2,1))
+    confint(model1)
+    model1.res <- residuals(model1)
+    shapiro.test(model1.res)
+    model1.prediction <- forecast(model1, h = (50))
+    #model1.prediction <- forecast(model1, h = (input$predictext-2017))
+    plot(model1.prediction, xlab = "Years", ylab = "Population", main = "Expected population in the future")
+    })
+  
+  output$WorldRegionPlot <- renderPlot({
+    
+    
+    
+    main <- Lrdf[c("Europe","Canada and Newfoundland", "Mexico" ,"Caribbean","Central America","South America","China","South_East_Asia","Middle_East","Africa", "Oceania"),]
+    tmain <- data.frame(t(main))
+    tmain <- cbind(year=as.numeric(c(2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017)), tmain)
+    rownames(tmain) <- NULL
+    
+    temp <- tmain[,c("year", "Europe")]
+    colnames(temp) <- c("year", "population")
+    
+    newTable <- cbind(temp, Country="Europe")
+    for (country in c("Canada.and.Newfoundland", "Mexico" ,"Caribbean","Central.America","South.America","China","South_East_Asia","Middle_East","Africa", "Oceania"))
+    {
+      temp <- tmain[,c("year", country)]
+      colnames(temp) <- c("year", "population")
+      temp <- cbind(temp, Country=country)
+      newTable <- rbind(newTable,temp)
+    }
+    
+    newTable <-(newTable %>%
+                  filter(year >= input$yearperiods[1],
+                         year <= input$yearperiods[2]))
+    
+    newTable = subset(newTable, Country %in% input$CountryCheck)
+    
+    plotarea <-geom_area(aes(color=Country, fill=Country))
+    plotstack <- geom_col (stat = "identity", aes(color=Country, fill=Country),position = position_stack(reverse = TRUE))
+
+    if(input$totalplottype == "stack"){
+      plotarea <- plotstack}
+    
+    if(input$totalplottype == "line"){
+      plotarea <- geom_line(aes(color=factor(Country), group=Country),size=1.5)}
+    ggplot(newTable, aes(x=year, y=population)) + plotarea
+    
+  })
+  
+  output$sentimantsbar <- renderPlot({
+    {
+      Merged = ''
+      immmerge=list()
+      for(o in 1:22){
+        immfile <- paste0(o,".json")
+        test = fromJSON(file =immfile)
+        Title = test$Title
+        Content = as.data.frame(test$Content)
+        for (i in 1:length(Content))
+        {
+          Merged = paste(Merged, strrep(paste(colnames(Content[i]), ''), Content[, i]))
+        }
+        Merged
+        
+        
+        immmerge <- rbind(immmerge,as.matrix(Merged, sep=''))
+      }
+    
+      #Clean
+      {
+        immerge.con = immmerge
+        immerge.clean <- as.matrix(immerge.con)
+        immerge.clean <- as.character(immerge.clean)
+        immerge.cleandf <- data_frame(immerge.clean)
+        colnames(immerge.cleandf)<- ("text")
+        immerge.cleandf$text=  gsub("true", "", immerge.cleandf$text)
+        immerge.cleandf$text=  gsub("trump", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("&amp", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("@\\w+", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("[[:punct:]]", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("[[:digit:]]", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("http\\w+", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("[ \t]{2,}", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("^\\s+|\\s+$", "", immerge.cleandf$text)
+        immerge.cleandf$text = gsub("function", "", immerge.cleandf$text)
+        immerge.cleandf$text <- iconv(immerge.cleandf$text, "UTF-8", "ASCII", sub="")
+      }
+    #creat emotion classification bar
+    # summarize "nrc"
+    
+      immerge.token <-immerge.cleandf %>% unnest_tokens(word, text)
+
+    
+      emotions <- immerge.token %>% right_join(get_sentiments("nrc"))%>%
+        filter(!is.na(sentiment)) %>%
+        count(sentiment, sort = TRUE)
+      
+      bing_word_counts <- immerge.token %>%
+        inner_join(get_sentiments("bing")) %>%
+        count(word, sentiment, sort = TRUE) %>%
+        ungroup()    
+      }
+    
+    
+    
+    if(input$sentimenttype == "Polarity"){emotions <- bing_word_counts}
+    
+    
+    ggplot(emotions,aes(x=emotions$sentiment, y=emotions$n, fill=emotions$sentiment)) + geom_bar(stat = "identity")
+    #library(plotly)
+    #plot_ly(emotions, x=emotions$sentiment, y=emotions$n, type="bar", color=emotions$sentiment,  title="Emotion Type for Trump IMMIGRATION policy") 
+    
+  })
+  output$WorldcloudTrump <- renderPlot({
+    #Wordcloud
+    #This will make all words lower case, and remove any non-alphanumeric characters
+    
+    immerge.cleandf$text <- tolower(immerge.cleandf$text)
+    immerge.cleandf$text <- gsub("[^0-9A-Za-z///' ]", "", immerge.cleandf$text)
+    
+    # create corpus
+    immerge.cleandfcorpus = Corpus(VectorSource(immerge.cleandf$text))
+    
+    
+    # remove punctuation, convert every word in lower case and remove stop words
+    cleancorpus <-{
+      cnn.space <-content_transformer(function(x , pattern ) gsub(pattern, " ", x))
+      immerge.cleandfcorpus <- tm_map(immerge.cleandfcorpus, removePunctuation )
+      immerge.cleandfcorpus <- tm_map(immerge.cleandfcorpus, removeWords, stopwords("english") )
+      immerge.cleandfcorpus <- tm_map(immerge.cleandfcorpus, stripWhitespace )
+      immerge.cleandfcorpus <- tm_map(immerge.cleandfcorpus, removeNumbers )
+      immerge.cleandfcorpus <- tm_map (immerge.cleandfcorpus, stemDocument)
+      immerge.cleandfcorpus <- tm_map(immerge.cleandfcorpus, removeWords, c("function", "name","valu","return","npr","function","data","size","push","window",
+                                                                            "var","wpmetadata","document","list","default","null","openx","dynam","amp","twp","pbexternalresourcesload pbexternalresourcesload",
+                                                                            "clavisauxnam clavisauxnam","clavisaux","prop","articl","start","washingtonpost","customopt",
+                                                                            "www","div","css","type","span","html","item","content","xpx","theme","url",
+                                                                            "xtypenam","com","width","sprinkledbodi sprinkledbodi","font","tag","text","site",
+                                                                            "link","jpg","import","xff","load","xbf","titl","link","http","um","fff","fals",
+                                                                            "qxjawnsztpuexqlyhcnrpyxllzriyzaynzyltmnwetnwnjzsyqlwuyzdgyyjmngjmmw","nav","typenam",
+                                                                            "filterempti filterempti","tri","true","generat","color","margin","webkit","index","mbr","utc")) 
+    }
+    
+    # create document term matrix
+    
+    tdm = TermDocumentMatrix(immerge.cleandfcorpus)
+    m <- as.matrix(tdm)
+    v <- sort(rowSums(m),decreasing=TRUE)
+    d <- data.frame(word = names(v),freq=v)
+    head(d, 10)
+    wordcloud(immerge.cleandfcorpus, scale=c(5,.5),  min.freq = 1, max.words=500, random.order=FALSE, 
+              rot.per=0.35, use.r.layout=FALSE, colors=brewer.pal(8, "Dark2"))
+  })
+  
+  
+  }
+
+
+# Create Shiny app ----
+shinyApp(ui, server)
+#deployApp(appName = "myapp")
+

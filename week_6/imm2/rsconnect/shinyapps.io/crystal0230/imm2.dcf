@@ -1,0 +1,13 @@
+name: imm2
+title:
+username:
+account: crystal0230
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 566131
+bundleId: 1696810
+url: https://crystal0230.shinyapps.io/imm2/
+when: 1542053025.90757
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 2016_07.csv|last_residence.csv|MPI-Data-Hub-Children-in-immigrant-families_2016.xlsx|child/1990_017.csv|child/1990_05.csv|child/2000_017.csv|child/2000_05.csv|child/2012_017.csv|child/2012_05.csv|child/2013_017.csv|child/2013_05.csv|child/2014_017.csv|child/2014_05.csv|child/2015_017.csv|child/2015_05.csv|child/2016_017.csv|child/2016_05.csv

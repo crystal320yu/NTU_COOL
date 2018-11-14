@@ -16,7 +16,7 @@ k <- readLines("file:///C:/Users/user/Desktop/NTU_COOL/week_5/news.txt" )
 
 
 urlList <- list()
-for(i in 2:99){
+for(i in 2:84){
   url <- k[i] %>% as.character()
   urlList <- rbind(urlList, url)
 }
@@ -24,7 +24,7 @@ for(i in 2:99){
 urlList = unique(urlList)
 text1 = news.doc
 news.doc <- list()
-for(url in urlList[2:56])
+for(url in urlList[2:55])
 {
   print(url)
   html <- read_html(url) %>% html_nodes(".zn-body__paragraph") %>% html_text()
@@ -104,3 +104,13 @@ selectt <- select$Term
 ggplot(selectr, aes(y="sum")) + geom_bar(stat='identity',colour="white",  fill= "blue")
 sums[0]
 
+ttt <- TermDocumentMatrix(clean)
+tttm <- as.matrix(ttt)
+ttts = as.data.frame(tttm)
+names(ttts) = doc
+doc = paste("doc", seq(1,54,1), sep = "")
+ttts$word = row.names(tttm)
+ttts.1 = ttts[ ,c(55, 1:54)]
+row.names(ttts.1) = NULL
+
+tf_idf

@@ -1,0 +1,17 @@
+YRBK.file <- list.files("C:/Users/user/Desktop/NTU_COOL/week_6/YRBK_2017")
+print(YRBK.file)
+library(stringr)
+library(readr)
+library(dplyr)
+library(readxl)
+library(xlsx)
+library(rjava)
+YB.col <- cols(
+  Year = col_character(),
+  Number = col_character()
+)
+YB.total <- read_csv("C:/Users/user/Desktop/NTU_COOL/week_6/imm2/YB_total.csv", col_types = YB.col)
+#View(YB.total)
+YB.total$Year <- format(YB.total$Year, format="%Y")
+YB.total$Number <- as.numeric(YB.total$Number)
+str(YB.total)
