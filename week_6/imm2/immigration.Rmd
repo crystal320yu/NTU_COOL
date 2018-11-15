@@ -188,7 +188,9 @@ ui <- fluidPage(
 
 ```{r }
 server <- function(input, output) {
-  
+
+#製作移民總人口趨勢圖
+#根據年代區間變動
   output$WorldPopulationPlot <- renderPlot({
     filtered <-(TT %>%
                   filter(Year >= input$yearinput[1],
@@ -202,6 +204,9 @@ server <- function(input, output) {
     ggplot(filtered, aes(Year, Population))+ gtotalpopulationplottype + labs(title="Total Immigrant Population")
 
   })
+  
+#製作移民性別趨勢圖
+#根據年代區間變動
   
   output$genderbar <-renderPlot({
     genderdata <- read_csv("total_sex.csv", 

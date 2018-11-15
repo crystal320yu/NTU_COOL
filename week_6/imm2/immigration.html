@@ -311,7 +311,9 @@ Lrdf &lt;- Lrdf[,2:19]}</code></pre>
                  )
                )))))</code></pre>
 <pre class="r"><code>server &lt;- function(input, output) {
-  
+
+#製作移民總人口趨勢圖
+#根據年代區間變動
   output$WorldPopulationPlot &lt;- renderPlot({
     filtered &lt;-(TT %&gt;%
                   filter(Year &gt;= input$yearinput[1],
@@ -325,6 +327,9 @@ Lrdf &lt;- Lrdf[,2:19]}</code></pre>
     ggplot(filtered, aes(Year, Population))+ gtotalpopulationplottype + labs(title=&quot;Total Immigrant Population&quot;)
 
   })
+  
+#製作移民性別趨勢圖
+#根據年代區間變動
   
   output$genderbar &lt;-renderPlot({
     genderdata &lt;- read_csv(&quot;total_sex.csv&quot;, 

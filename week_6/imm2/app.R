@@ -2,7 +2,6 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 library(devtools)
-#install_github("XD-DENG/ECharts2Shiny")
 library(shiny)
 library(ECharts2Shiny)
 library(readr)
@@ -19,7 +18,6 @@ library(Matrix)
 library(rvest)
 library(sentimentr)
 library(forecast)
-#install.packages('rsconnect')
 library(rsconnect)
 rsconnect::setAccountInfo(name='crystal0230', token='9B297C647247E638B707B23262467F33', secret='MhLGw20ABeSFi1Hdp0irZxwXXjrNvDDS3Uq5c+hB')
 
@@ -136,7 +134,7 @@ ui <- fluidPage(
                                   min = 1,  max = 50, value = 15),
                      sliderInput("maxfreq",
                                  "Maximum Number of Words:",
-                                  min = 1,  max = 300,  value = 100)
+                                  min = 1,  max = 500,  value = 300)
                    ),
                    mainPanel(
                      plotOutput("WorldcloudTrump")
@@ -198,18 +196,27 @@ server <- function(input, output) {
 
     
     
-    TT.ts <- ts(TT$Population, start = 1950,  deltat = 1)
-    plot(TT.ts, main = "Population trend of 1950 ~ 2017", xlab = "Years", ylab = "Population")
-    acf(TT.ts)
-    pacf(TT.ts)
-    auto.arima(TT.ts)
-    model1 <- arima(TT.ts, order =c(1,2,1))
-    confint(model1)
-    model1.res <- residuals(model1)
-    shapiro.test(model1.res)
-    model1.prediction <- forecast(model1, h = (50))
-    #model1.prediction <- forecast(model1, h = (input$predictext-2017))
-    plot(model1.prediction, xlab = "Years", ylab = "Population", main = "Expected population in the future")
+#    TT.ts <- ts(TT$Population, start = 1950,  deltat = 1)
+#   plot(TT.ts, main = "Population trend of 1950 ~ 2017", xlab = "Years", ylab = "Population")
+#    acf(TT.ts)
+#    pacf(TT.ts)
+#    auto.arima(TT.ts)
+#    model1 <- arima(TT.ts, order =c(1,2,1))
+#    confint(model1)
+#    model1.res <- residuals(model1)
+#    shapiro.test(model1.res)
+#    model1.prediction <- forecast(model1, h = (50))
+#    #model1.prediction <- forecast(model1, h = (input$predictext-2017))
+#    plot(model1.prediction, xlab = "Years", ylab = "Population", main = "Expected population in the future")
+    
+    obpre <- read.csv("obpre.CSV")
+    colnames(obpre) <- c("Year","Population","Type")
+    row.names(obpre) <- NULL
+    obpre <- rbind(Year=as.numeric(c(1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017)), 
+                   obpre)
+    predictfilter <- obpre %>% filter(Year >= 1950,
+                                      Year <= input$predictext)
+    ggplot(predictfilter, aes(Year,Population,color=Type)) +geom_line(size=1.5)
     })
   
   output$WorldRegionPlot <- renderPlot({
@@ -252,24 +259,25 @@ server <- function(input, output) {
   })
   
   output$sentimantsbar <- renderPlot({
-    {
-      Merged = ''
-      immmerge=list()
-      for(o in 1:22){
-        immfile <- paste0(o,".json")
-        test = fromJSON(file =immfile)
-        Title = test$Title
-        Content = as.data.frame(test$Content)
-        for (i in 1:length(Content))
-        {
-          Merged = paste(Merged, strrep(paste(colnames(Content[i]), ''), Content[, i]))
-        }
-        Merged
-        
-        
-        immmerge <- rbind(immmerge,as.matrix(Merged, sep=''))
-      }
+   {
+#      Merged = ''
+#      immmerge=list()
+#      for(o in 1:22){
+#        immfile <- paste0(o,".json")
+#        test = fromJSON(file =immfile)
+#        Title = test$Title
+#        Content = as.data.frame(test$Content)
+#        for (i in 1:length(Content))
+#        {
+#          Merged = paste(Merged, strrep(paste(colnames(Content[i]), ''), Content[, i]))
+#        }
+#        Merged
+#        
+#        
+#        immmerge <- rbind(immmerge,as.matrix(Merged, sep=''))
+#      }
     
+    immmerge <- read.table("immerge.txt",fill = TRUE , header = FALSE)
       #Clean
       {
         immerge.con = immmerge
@@ -277,8 +285,6 @@ server <- function(input, output) {
         immerge.clean <- as.character(immerge.clean)
         immerge.cleandf <- data_frame(immerge.clean)
         colnames(immerge.cleandf)<- ("text")
-        immerge.cleandf$text=  gsub("true", "", immerge.cleandf$text)
-        immerge.cleandf$text=  gsub("trump", "", immerge.cleandf$text)
         immerge.cleandf$text = gsub("&amp", "", immerge.cleandf$text)
         immerge.cleandf$text = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", "", immerge.cleandf$text)
         immerge.cleandf$text = gsub("@\\w+", "", immerge.cleandf$text)
@@ -287,7 +293,6 @@ server <- function(input, output) {
         immerge.cleandf$text = gsub("http\\w+", "", immerge.cleandf$text)
         immerge.cleandf$text = gsub("[ \t]{2,}", "", immerge.cleandf$text)
         immerge.cleandf$text = gsub("^\\s+|\\s+$", "", immerge.cleandf$text)
-        immerge.cleandf$text = gsub("function", "", immerge.cleandf$text)
         immerge.cleandf$text <- iconv(immerge.cleandf$text, "UTF-8", "ASCII", sub="")
       }
     #creat emotion classification bar
@@ -311,7 +316,7 @@ server <- function(input, output) {
     if(input$sentimenttype == "Polarity"){emotions <- bing_word_counts}
     
     
-    ggplot(emotions,aes(x=emotions$sentiment, y=emotions$n, fill=emotions$sentiment)) + geom_bar(stat = "identity")
+    ggplot(emotions,aes(x=sentiment, y=n, fill=sentiment)) + geom_bar(stat = "identity")
     #library(plotly)
     #plot_ly(emotions, x=emotions$sentiment, y=emotions$n, type="bar", color=emotions$sentiment,  title="Emotion Type for Trump IMMIGRATION policy") 
     
@@ -352,7 +357,7 @@ server <- function(input, output) {
     v <- sort(rowSums(m),decreasing=TRUE)
     d <- data.frame(word = names(v),freq=v)
     head(d, 10)
-    wordcloud(immerge.cleandfcorpus, scale=c(5,.5),  min.freq = 1, max.words=500, random.order=FALSE, 
+    wordcloud(immerge.cleandfcorpus, scale=c(5,.5),  min.freq = input$minfreq, max.words=input$maxfreq, random.order=FALSE, 
               rot.per=0.35, use.r.layout=FALSE, colors=brewer.pal(8, "Dark2"))
   })
   
@@ -361,6 +366,12 @@ server <- function(input, output) {
 
 
 # Create Shiny app ----
-shinyApp(ui, server)
-#deployApp(appName = "myapp")
+save.image(file="shiny.RData")
 
+# Load (e.g. in global.R)
+#load("C:\Users\user\Desktop\NTU_COOL\week_6\imm2\shiny.RData")
+shinyApp(ui, server)
+#deployApp(appName = "immigration")
+
+
+#rsconnect/shinyapps.io/crystal0230/imm2.dcf. 
