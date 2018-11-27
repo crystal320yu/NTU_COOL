@@ -68,7 +68,10 @@ row.names(Lrdf)<- Lrdf$country
 Lrdf <- Lrdf[,2:19]}
 ```
 
-You can also embed plots, for example:
+```{r}
+pca <- prcomp(immmerge)
+plot(pca, type="line")
+```
 
 ```{r }
 ui <- fluidPage(
