@@ -6,7 +6,7 @@
   <ul type="disc">
     <li>Home</li>
     <ul type="circle">
-      <li><a href="file:///C:/Users/user/Desktop/NER.html">NER.html</a></li> 
+      <li><a href="https://crystal320yu.github.io/NTU_COOL/week_12/NER.1.html">NER.html</a></li> 
         </ul>
         </ul>
         </p>
